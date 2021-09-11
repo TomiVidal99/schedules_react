@@ -5,19 +5,22 @@
     --palette-c2: #30414D;
     --palette-c3: #5D778A;
     --palette-c4: #BBDDF3;
+    --palette-c5: #84b0d0;
 
     /*custom colors*/
     --cc1: #fff;
     --cc2: #2C3942;
     --schedules-background: rgb(93 119 138 / .45);
+    --columns-even-bg: rgb(93 119 138 / .3);
+    --columns-odd-bg: rgb(93 119 138 / .3);
 
     /*font sizes*/
-    --fs-p: .9rem;
+    --fs-p: 1.125rem;
     --fs-h1: 6rem;
     --fs-h2: 2.8125rem;
-    --fs-h3: 2.6125rem;
+    --fs-h3: 2.1125rem;
     --fs-h4: 2.2125rem;
-    --fs-h5: 1.6125rem;
+    --fs-h5: 1.3125rem;
     --fs-h6: 1.125rem;
 
     /*font families*/
@@ -30,15 +33,21 @@
     --ff-h6: 'Nunito', sans-serif;
 
     /*font weights*/
-    --fw-p: 100;
-    --fw-h1: 400;
+    --fw-p: 500;
+    --fw-h1: 900;
     --fw-h2: 200;
-    --fw-h3: 100;
-    --fw-h4: 100;
+    --fw-h3: 500;
+    --fw-h4: 600;
     --fw-h5: 100;
-    --fw-h6: 100;
+    --fw-h6: 400;
 
     /*other global stylings*/
+    --calendar-day-number-fs: 1.5rem;
+    --calendar-day-number-ff: Arial;
+
+    --color-add-btn: rgb(255 255 255 / .9);
+    --bg-add-btn: rgb(100 205 80 / 1);
+    --bg-close-btn: rgb(200 80 80 / 1);
 
 }
 
@@ -108,13 +117,21 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 
 /*button style*/
 .btn {
-    padding: .4em .8em;
+    padding: .4em .5em;
     text-transform: uppercase;
     font-size: var(--fs-h6);
     font-family: var(--ff-h6);
     font-weight: var(--fw-h1);
     border: none;
     border-radius: 6px;
+    cursor: pointer;
+    max-height: 25%;
+    text-overflow: clip;
+    overflow: hidden;
+    outline: none;
+}
+.btn:hover {
+    filter: brightness(1.5);
 }
 .auth__btn {
     margin: 0 auto 6% auto;
@@ -165,45 +182,350 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 /*~~schedule~*/
 /*~~~~~~~~~~~*/
 .schedules-container {
-    margin-top: 10vh;
     width: 95%;
-    max-width: 1500px;
-    height: 60%;
-    background: var(--schedules-background);
+    max-height: 75vh;
+}
+
+.schedules__header {
+    grid-template-rows: auto;
+    border: 1px solid rgb(0 0 0 / .2);
+    margin-bottom: 1em;
+    background-color: rgb(93 119 138 / .85);
+}
+.schedules__header h3 {
+    color: var(--palette-c4);
+    text-overflow: clip;
+    overflow: hidden;
+    padding: 0 .2em;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.schedules__header h3 + h3 {
+    --border-color: rgb(0 0 0 / .2);
+    border-left: 2px solid var(--border-color);
+}
+
+.schedules__body,
+.schedules__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: row;
+    overflow: hidden;
+}
+
+.schedules__body {
     border-radius: 5px;
 }
 
-@media (max-width: 500px) {
-    .table__header th {
-        visibility: hidden;
-        text-align: center;
-    }
-    .table__header th::first-letter {
-        visibility: visible;
-    }
-}
-
-.schedules-table {
-    width: 100%;
+.calendar__day {
+    cursor: pointer;
+    user-select: none;
+    background: rgb(93 119 138 / .45);
+    border: 1px solid rgb(93 119 138 / .6);
+    font-size: var(--fs-h6);
+    font-family: var(--ff-h1);
+    font-weight: var(--fw-h6);
+    color: rgb(0 0 0 / .65);
+    transition: background .3s ease-in-out, width 2s ease-in-out, height 2s ease-in-out;
+    min-height: 12vh;
     height: 100%;
-    table-layout: fixed;
-    white-space: nowrap;
+    width: 100%;
+    grid-row-end: span 1;
+    grid-column-end: span 1;
+}
+.calendar__day:hover {
+    background: rgb( 159 208 244 / 1);
+    border: 1px solid var(--palette-c4);
+    color: rgb(0 0 0 / 1);
+}
+.icon-warning:hover {
+    color: rgb(0 0 0 / .4);
+}
+.calendar-open {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    height: 90vh;
+    transform: translate(10vw, 5vh);
+    background: rgb( 159 208 244 / 1);
+    z-index: 100;
+    color: var(--palette-c4) !important;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    grid-template-rows: min-content auto;
+    align-items: center;
+    cursor: default;
+    padding: .8em .4em;
+    box-shadow: 0 0 10000px black;
+}
+.calendar-open::after {
+    display: none;
+}
+.calendar-open > .day__number {
+    color: rgb(93 119 138 / 1);
+}
+.calendar-open > .day__number::after {
+    content: attr(after-content);
 }
 
-.table__header {
-    background-color: var(--cc2);
+/*style for the day number inside the time tag*/
+.day__number {
+    font-size: var(--calendar-day-number-fs);
+    font-weight: var(--fw-p);
+    font-family: var(--calendar-day-number-font-family);
+    margin-left: .6em;
+    padding: 0;
+    pointer-events: none;
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+    justify-self: flex-start;
 }
-.table__header tr {
-    height: 10%;
-    width: 100%;
+
+.dates__btn {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    border: none;
+    padding: .8em;
+    align-self: center;
+    cursor: pointer;
 }
-.table__header th {
-    color: var(--cc1);
+.dates__btn:hover {
+    filter: brightness(1.2);
+    color: #fff;
+}
+
+/*style for the button that adds appointments*/
+.btn-add {
+    justify-self: center;
+    color: var(--color-add-btn);
+    background-color: var(--bg-add-btn);
+    font-size: var(--fs-h6);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .2em 2em;
+}
+.btn-add::after {
+    content: url('https://api.iconify.design/carbon/add-filled.svg?color=white&width=32&height=32');
+    margin-top: auto;
+    margin-left: .8em;
+}
+
+/*style for the button for closing the opened date*/
+.btn-close {
+    justify-self: flex-end;
+    margin-right: .2em;
+    background: transparent;
+}
+.btn-close::after {
+    content: url('https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32');
+}
+
+/*set the icon for the days that have appointment*/
+.icon-warning {
+    color: var(--palette-c4);
+}
+.icon-warning::after {
+    content: url('https://api.iconify.design/akar-icons/circle-alert.svg?color=white');
+    margin-left: .8em;
+}
+
+/*set the initial position of the first day of the calendar*/
+.calendar-1 {grid-column: 1;}
+.calendar-2 {grid-column: 2;}
+.calendar-3 {grid-column: 3;}
+.calendar-4 {grid-column: 4;}
+.calendar-5 {grid-column: 5;}
+.calendar-6 {grid-column: 6;}
+.calendar-7 {grid-column: 7;}
+
+/*styling inside the calendar day*/
+.day__dates {
+    list-style-type: none;
+    padding: 0;
+    margin: .4em auto;
+    width: 90%;
+    height: 90%;
+    background-color: rgb(90 146 187 / 1);
+    transition: opacity .4s ease-in;
+    display: grid;
+    grid-template-rows: repeat(96, .0107fr);
+    grid-template-columns: min-content auto;
+    grid-auto-flow: column;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    counter-reset: hours;
+    counter-set: hours -1;
+}
+.dates__date {
+    font-size: var(--fs-p);
+    font-family: var(--ff-p);
+    font-weight: var(--fw-p);
+    text-align: center;
+    grid-column: 2 / span 1;
+    background-color: rgb( 100 100 20 / .1);
+}
+.dates__date::before {
+    content: '- ';
+    color: var(--palette-c4);
+    font-weight: var(--fw-h1);
+}
+
+.day__hour {
+    grid-column: 1 / span 1;
+    grid-row-end: span 4;
+    counter-increment: hours;
+    background: rgb(63 99 126 / 1);
+}
+.day__hour:first-child, 
+.day__hour + .day__hour {
+    --border-color: rgb(93 119 138 / 1);
+    border-bottom: 2px solid var(--border-color);
+}
+.day__hour:nth-child(24) {border-bottom: none;}
+
+.day__hour::after {
+    content: counter(hours) 'hs ';
+    text-align: center;
+    padding: 0 .8em;
+    float: right;
+}
+
+/*styling for the label returned as default when theres no dates this day*/
+.day__default-message {
     font-size: var(--fs-h5);
     font-family: var(--ff-h6);
-    font-weight: var(--fw-h1);
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: nowrap;
+    font-weight: var(--fw-p);
+    color: rgb(93 119 138 / 1);
+    margin: 5em auto auto auto;
     text-align: center;
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    padding: 1em 1.5em;
+    background-color: rgb(93 119 138 / .25);
+}
+
+
+@media (max-width: 900px) {
+    .schedules__header h3 {
+        visibility: hidden;
+    }
+    .schedules__header h3::first-letter {
+        visibility: visible;
+        border-left: 3px solid var(--border-color);
+        padding-left: 28%;
+    }
+    .schedules__header h3:first-child::first-letter {
+        border-left: none;
+    }
+}
+/*schedules header breaks under 500px (font-size too big)*/
+@media (max-width: 500px) {
+    .schedules__header h3 {
+        font-size: var(--fs-p);
+    }
+    .calendar-open {
+        grid-row: span 7 / span 3 !important;
+        grid-column: span 7 / span 3 !important;
+        min-height: 50vh;
+    }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ New date container ~~~~~*/
+.schedules__new-date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--palette-c5);
+    width: 50vw;
+    height: 75vh;
+    transform: translate(25vw, 15vh);
+    box-shadow: 0 0 100px black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: flex-start;
+    z-index: 200;
+    color: #21435c;
+    overflow: hidden;
+}
+/*container for the title and the close button*/
+.new-date__header {
+    margin: .8em auto;
+    display: flex;
+    width: 90%;
+    max-width: 800px;
+    align-items: center;
+    justify-content: space-between;
+    border-color: #5289b1;
+    font-family: var(--ff-p);
+}
+/*title*/
+.new-date__title {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: var(--ff-p);
+}
+/*close button*/
+.new-date__btn-close {
+    background: var(--bg-close-btn);
+    min-width: 32px;
+    min-height: 32px;
+    background: url('https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32');
+}
+
+/*fieldset*/
+.new-date__fieldset {
+    padding: .8em;
+    margin: auto;
+    display: flex;
+    width: 90%;
+    height: 80%;
+    overflow: hidden;
+    max-width: 800px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-color: #5289b1;
+    font-family: var(--ff-p);
+}
+.fieldset__label {
+    color: #001a2d;
+    width: 70%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--fs-h6);
+}
+.fieldset__input {
+    padding: .4em .8em;
+    border-radius: 0;
+    border: none;
+    margin: 1em .2em;
+    outline: none;
+    border: 1px solid transparent;
+    width: 100%;
+    text-align: center;
+    font-family: var(--ff-p);
+    cursor: pointer;
+}
+.fieldset__input:active {
+    border: 1px solid var(--palette-c5);
+}
+.fieldset__btn-add {
+    margin: 0;
+    background-color: var(--bg-add-btn);
+    color: var(--color-add-btn);
+}
+.fieldset__btn-add:disabled {
+    filter: brightness(.65);
+    cursor: default;
 }
