@@ -3,22 +3,8 @@ import {auth, db} from './components/Authentication';
 import {useAuthState} from 'react-firebase-hooks/auth';
 
 // import components
-import AuthContainer from './components/AuthContainer.js'
-import SchedulesContainer from './components/SchedulesContainer.js'
-
-//create addHours method for Date prototype
-Date.prototype.addHours = function(h){
-    this.setHours(this.getHours()+h);
-    return this;
-}
-Date.prototype.addDays = function(d){
-    this.setDate(this.getDate()+d);
-    return this;
-}
-Date.prototype.addMonth = function(m){
-    this.setMonth(this.getMonth()+m);
-    return this;
-}
+import AuthContainer from './components/AuthContainer.js';
+import SchedulesContainer from './components/SchedulesContainer.js';
 
 const App = () => {
     const [user] = useAuthState(auth);
@@ -27,9 +13,12 @@ const App = () => {
     const [data, setData] = useState(null);
     const [monthData, setMonthData] = useState(null);
 
+    //TODO: make a remove task, and be able to go back on months
+
     //handle add new date
     const handle_add_date = (newDate) => {
         //TODO: bug: data doesnt update correctly
+        //TODO: check if the new data doesnt overlap with some other
 
         let newMonthData = monthData;
 
@@ -44,7 +33,6 @@ const App = () => {
             if (monthDayNumber === newDayNumber) {
                 //case when they date is beeing added to a day that already has dates
                 day.dates = [...day.dates, newDate];
-                console.log('will set a new date');
                 foundFlag = true;
             } 
         });
@@ -99,10 +87,10 @@ const App = () => {
         db.collection('data').get()
             .then( (querySnapshot) => {
                 const data = querySnapshot.docs.map( doc => doc.data());
-                if (data[0]) {
+                if (data[userId]) {
                     //if the data exists retrieve it
                     //console.log(data[0])
-                    setData(data[0].data);
+                    setData(data[userId].data);
                     setDbPathExists(true);
                 }
             })
@@ -110,14 +98,14 @@ const App = () => {
                 console.error("Error reading document: ", error);
             });
 
-        //db.collection('data').doc(userId).set({ DATA }, { merge: true });
+        //db.collection('data').doc(userId).set({ data }, { merge: true });
 
     }, [user]);
 
     // store user's data in the data base
     useEffect( () => {
 
-        console.log('updating data');
+        //console.log('updating data');
 
         if (!user || monthData.length === 0 || !uid) return;
 

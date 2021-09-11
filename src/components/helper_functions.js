@@ -14,7 +14,7 @@ const get_random_hsl = (saturation, light) => {
 }
 
 const get_total_quarters_of_hours = (date) => {
-    console.log(date);
+    //console.log(date);
     //returns the total sum of quarters of hours has this date
     const hours = (4*date.getHours());
     const minutes = Math.round(date.getMinutes() / 15);

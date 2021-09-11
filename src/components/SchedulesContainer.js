@@ -11,10 +11,10 @@ const SchedulesContainer = ({monthData, updateMonthData}) => {
 
     //when the user clicks to submit a new appointment inside the appointments window
     const handle_submit_appointment = (newDate) => {
-        console.log('newDate! ', newDate);
+        //console.log('newDate! ', newDate);
 
         //error handling when the day hasn't been set
-        if (!currentDay) throw 'Current day undefined when submitting the appointment';
+        if (!currentDay) return(console.log('Current day undefined when submitting the appointment'));
 
         // set the day to the selected one
         const to = new Date();

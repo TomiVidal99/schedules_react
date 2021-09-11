@@ -20,7 +20,7 @@ const Dates = ({dates, hours, setIsOpen, setNewAppointment}) => {
                     dates.map( (date) => {
                         return(<li 
                         key={get_random_id()}
-                        style={{"gridRow": `${get_total_quarters_of_hours(date.from.toDate())} / span ${get_total_quarters_of_hours(date.to.toDate()) - get_total_quarters_of_hours(date.from.toDate())}`, "backgroundColor": `${get_random_hsl(50, 50)}` }} 
+                        style={{"gridRow": `${get_total_quarters_of_hours(date.from.toDate())} / span ${get_total_quarters_of_hours(date.to.toDate()) - get_total_quarters_of_hours(date.from.toDate())}`, "backgroundColor": `${get_random_hsl(50, 45)}` }} 
                         className="dates__date">{date.title}</li>)
                     })
                 }

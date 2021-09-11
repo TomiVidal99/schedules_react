@@ -71,10 +71,10 @@ const Appointment = ({submit_callback, close_window}) => {
                     Content:<textarea value={content} onChange={(e) => {handle_content_change(e)}} className="fieldset__input" type="textbox" id="content" name="content" />
                 </label>
                 <label className="fieldset__label" htmlFor="from">
-                    From:<input onChange={(e) => {handle_from_update(e)}} className="fieldset__input" type="time" id="from" name="from" />
+                    From:<input onChange={(e) => {handle_from_update(e)}} className="fieldset__input" type="time" id="from" name="from" step="900" />
                 </label>
                 <label className="fieldset__label" htmlFor="to">
-                    To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" />
+                    To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" step="900" />
                 </label>
                 {!canSendData ? <label className="disabled-bt-description">More information required.</label> : null}
                 <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput})}}>Add</button>
