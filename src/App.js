@@ -20,42 +20,6 @@ Date.prototype.addMonth = function(m){
     return this;
 }
 
-//date structure
-//const DATA = [
-    //{
-        //date: new Date(),
-        //days: [
-            //{
-                //date: new Date(),
-                //dates: [
-                    //{
-                        //title: 'dentist',
-                        //content: 'alsjkdaslkjñdha',
-                        //from: new Date(),
-                        //to: new Date().addHours(3),
-                    //}
-                //]
-            //}
-        //]
-    //},
-    //{
-        //date: new Date().addMonth(1),
-        //days: [
-            //{
-                //date: new Date().addDays(8),
-                //dates: [
-                    //{
-                        //title: 'dentist',
-                        //content: 'alsjkdaslkjñdha',
-                        //from: new Date().addHours(10),
-                        //to: new Date().addHours(13),
-                    //}
-                //]
-            //}
-        //]
-    //}
-//]
-
 const App = () => {
     const [user] = useAuthState(auth);
     const [uid, setUid] = useState(null);
@@ -65,16 +29,35 @@ const App = () => {
 
     //handle add new date
     const handle_add_date = (newDate) => {
-        console.log('new date!')
-        console.log(newDate);
-        console.log(monthData.days);
+        //TODO: bug: data doesnt update correctly
+
         let newMonthData = monthData;
+
+        //TODO: handle this case
+        //when the user has no appointments this month 
+        if (!newMonthData) return;
+
+        let foundFlag = false;
         newMonthData.days.forEach( (day) => {
-            if (day.date.toDate().getDate() === newDate.to.toDate().getDate()) {
-                //gets the day that will have this new date
+            const monthDayNumber = day.date.toDate().getDate();
+            const newDayNumber = newDate.to.toDate().getDate();
+            if (monthDayNumber === newDayNumber) {
+                //case when they date is beeing added to a day that already has dates
                 day.dates = [...day.dates, newDate];
-            }
+                console.log('will set a new date');
+                foundFlag = true;
+            } 
         });
+
+        //if the day that will have this new date doesnt already have any other dates
+        if (!foundFlag) {
+            // should make brand new date
+            newMonthData.days.push({
+                date: newDate.to,
+                dates: [newDate]
+            });
+        }
+
         setMonthData(newMonthData);
     }
 
@@ -133,6 +116,8 @@ const App = () => {
 
     // store user's data in the data base
     useEffect( () => {
+
+        console.log('updating data');
 
         if (!user || monthData.length === 0 || !uid) return;
 

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { get_random_id, get_random_hsl, helper_get_total_quarters } from './helper_functions';
+import { get_random_id, get_random_hsl, get_total_quarters_of_hours } from './helper_functions';
 
 const Dates = ({dates, hours, setIsOpen, setNewAppointment}) => {
     const defaultMessage = 'No appointments this day 🙂';
@@ -20,7 +20,7 @@ const Dates = ({dates, hours, setIsOpen, setNewAppointment}) => {
                     dates.map( (date) => {
                         return(<li 
                         key={get_random_id()}
-                        style={{"gridRow": `${helper_get_total_quarters(date.from.toDate())} / span ${helper_get_total_quarters(date.to.toDate()) - helper_get_total_quarters(date.from.toDate())}`, "backgroundColor": `${get_random_hsl(50, 50)}` }} 
+                        style={{"gridRow": `${get_total_quarters_of_hours(date.from.toDate())} / span ${get_total_quarters_of_hours(date.to.toDate()) - get_total_quarters_of_hours(date.from.toDate())}`, "backgroundColor": `${get_random_hsl(50, 50)}` }} 
                         className="dates__date">{date.title}</li>)
                     })
                 }

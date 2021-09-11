@@ -47,10 +47,12 @@ const Appointment = ({submit_callback, close_window}) => {
     }
     const handle_from_update = (e) => {
         const val = e.target.value;
+        //console.log(val);
         setFromInput(val);
     }
     const handle_to_update = (e) => {
         const val = e.target.value;
+        //console.log(val);
         setToInput(val);
     }
 
@@ -75,7 +77,7 @@ const Appointment = ({submit_callback, close_window}) => {
                     To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" />
                 </label>
                 {!canSendData ? <label className="disabled-bt-description">More information required.</label> : null}
-                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback(title, content, fromInput, toInput)}}>Add</button>
+                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput})}}>Add</button>
             </fieldset>
         </section>
     )

@@ -4,7 +4,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import DayContent from './DayContent';
 import { get_days_of_month, get_random_id } from "./helper_functions";
 
-const TableContent = ({monthData, setNewAppointment, userClickedOutside}) => {
+const TableContent = ({monthData, setNewAppointment, userClickedOutside, setCurrentDay}) => {
     const current_date = new Date();
     const current_year = current_date.getYear();
     const current_month = current_date.getMonth();
@@ -31,6 +31,9 @@ const TableContent = ({monthData, setNewAppointment, userClickedOutside}) => {
         newDays.forEach( (day) => {day.isOpen = false});
         if (isOpenState) newDays[dayNumber-1].isOpen = isOpenState;
         setDays([...newDays]);
+
+        // store on the parent's component the lastest day clicked to use it later
+        setCurrentDay(dayNumber);
 
         // close the appointment window if the user clicked another day or closed the window
         userClickedOutside();
