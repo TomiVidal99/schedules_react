@@ -1,7 +1,7 @@
 //some helper functions
 
 const get_random_id = () => {
-    return(Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1));
+    return(Math.floor((1 + Math.random()) * 0x100000000).toString(16).substring(1));
 }
 
 const get_days_of_month = (month, year) => {
