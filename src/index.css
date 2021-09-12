@@ -229,7 +229,10 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     font-family: var(--ff-h1);
     font-weight: var(--fw-h6);
     color: rgb(0 0 0 / .65);
-    transition: background .3s ease-in-out, width 2s ease-in-out, height 2s ease-in-out;
+    transition: 
+        /*width 2s ease-in-out,*/
+        /*height 2s ease-in-out,*/
+        background .3s ease-in-out;
     min-height: 12vh;
     height: 100%;
     width: 100%;
@@ -245,7 +248,10 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     color: rgb(0 0 0 / .4);
 }
 .calendar__today {
-    filter: brightness(.4);
+    background-color: rgb(93 119 138 / .8);
+}
+.calendar__today:hover::after {
+    content: 'today';
 }
 
 
@@ -377,10 +383,19 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     grid-column: 2 / span 1;
     background-color: rgb( 100 100 20 / .1);
 }
-.dates__date::before {
-    content: '- ';
-    color: var(--palette-c4);
-    font-weight: var(--fw-h1);
+/*.dates__date::before {*/
+    /*content: '- ';*/
+    /*color: var(--palette-c4);*/
+    /*font-weight: var(--fw-h1);*/
+/*}*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tags inside the date component ~~~~~*/
+.date__title {
+    margin: 0;
+    padding: 0;
+}
+.date__content {
+    margin: 0;
+    padding: 0;
 }
 
 .day__hour {

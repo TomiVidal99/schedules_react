@@ -21,7 +21,12 @@ const Dates = ({dates, hours, setIsOpen, setNewAppointment}) => {
                         return(<li 
                         key={get_random_id()}
                         style={{"gridRow": `${get_total_quarters_of_hours(date.from.toDate())} / span ${get_total_quarters_of_hours(date.to.toDate()) - get_total_quarters_of_hours(date.from.toDate())}`, "backgroundColor": `${get_random_hsl(50, 45)}` }} 
-                        className="dates__date">{date.title}</li>)
+                        className="dates__date">
+                                <h5 className="date__title">
+                                    {date.title}
+                                </h5>
+                                <p className="date__content">{date.content}</p>
+                            </li>)
                     })
                 }
             </ul>
