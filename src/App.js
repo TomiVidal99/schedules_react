@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {auth, db} from './components/Authentication';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import { doc, getDoc, collection, setDoc, query, where, getDocs } from '@firebase/firestore';
 
 // import components
 import AuthContainer from './components/AuthContainer.js';
@@ -10,8 +11,8 @@ const App = () => {
     const [user] = useAuthState(auth);
     const [uid, setUid] = useState(null);
     const [dbPathExists, setDbPathExists] = useState(false);
-    const [data, setData] = useState(null);
-    const [monthData, setMonthData] = useState(null);
+    const [data, setData] = useState(undefined);
+    const [monthData, setMonthData] = useState(undefined);
 
     //TODO: make a remove task, and be able to go back on months
 
@@ -24,7 +25,7 @@ const App = () => {
 
         //TODO: handle this case
         //when the user has no appointments this month 
-        if (!newMonthData) return;
+        if (!newMonthData || newMonthData.days.length === 0) return;
 
         let foundFlag = false;
         newMonthData.days.forEach( (day) => {
@@ -84,21 +85,20 @@ const App = () => {
         const userId = user.multiFactor.user.uid;
         setUid(userId);
 
-        db.collection('data').get()
-            .then( (querySnapshot) => {
-                const data = querySnapshot.docs.map( doc => doc.data());
-                if (data[userId]) {
-                    //if the data exists retrieve it
-                    //console.log(data[0])
-                    setData(data[userId].data);
-                    setDbPathExists(true);
-                }
-            })
-            .catch( (error) => {
-                console.error("Error reading document: ", error);
-            });
+        const docRef = db.collection('data').doc(userId);
 
-        //db.collection('data').doc(userId).set({ data }, { merge: true });
+        //retrieves data from db
+        getDoc(docRef).then( (docSnap) => {
+            const data = docSnap.data();
+
+            //the user has data
+            if (data) {
+                console.log('data: ', data);
+                setData(data);
+            }
+
+        } ).catch( (err) => {console.log(err)} );
+
 
     }, [user]);
 
