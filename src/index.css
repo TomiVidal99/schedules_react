@@ -244,6 +244,12 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 .icon-warning:hover {
     color: rgb(0 0 0 / .4);
 }
+.calendar__today {
+    filter: brightness(.4);
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ calendar open ~~~~~*/
 .calendar-open {
     position: absolute;
     top: 0;
@@ -513,7 +519,6 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     outline: none;
     border: 1px solid transparent;
     width: 100%;
-    text-align: center;
     font-family: var(--ff-p);
     cursor: pointer;
 }
@@ -536,9 +541,7 @@ input[type=time] {
     --numbers-bg: #eee;
     --midtime-bg: #0e7bca;
     --midtime-color: #fff;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
+    text-align: center;
 }
 /* Wrapper around the hour, minute, second, and am/pm fields as well as 
 the up and down buttons and the 'X' button */

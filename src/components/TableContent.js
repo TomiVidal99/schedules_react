@@ -5,12 +5,12 @@ import DayContent from './DayContent';
 import { get_days_of_month, get_random_id } from "./helper_functions";
 
 const TableContent = ({monthData, setNewAppointment, userClickedOutside, setCurrentDay}) => {
-    const current_date = new Date();
-    const current_year = current_date.getYear();
-    const current_month = current_date.getMonth();
-    const start_day = new Date(current_year, current_month, 1);
+    const currentDate = new Date();
+    const currentYear = currentDate.getYear();
+    const currentMonth = currentDate.getMonth();
+    const start_day = new Date(currentYear, currentMonth, 1);
     const start_day_number = start_day.getDay()+2;
-    const totalDays = get_days_of_month(current_month, current_year)
+    const totalDays = get_days_of_month(currentMonth, currentYear)
     const [days, setDays] = useState([]);
 
     // create the inital calendar days based on the days that the current month has
@@ -52,6 +52,7 @@ const TableContent = ({monthData, setNewAppointment, userClickedOutside, setCurr
                             setIsOpen={(dayNumber, newState) => {updateDayState(dayNumber, newState)}}
                             start_day_number={start_day_number}
                             setNewAppointment={setNewAppointment}
+                            todayNumber={currentDate.getDate()}
                         />)
                         
                 } )
