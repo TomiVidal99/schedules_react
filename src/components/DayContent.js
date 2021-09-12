@@ -5,7 +5,7 @@ import { get_random_id } from './helper_functions';
 import Dates from './Dates';
 
 //some side components to make the code more readable and mantainable
-const DayContent = ({days, dayNumber, isOpen, setIsOpen, start_day_number, setNewAppointment}) => {
+const DayContent = ({days, dayNumber, isOpen, setIsOpen, start_day_number, setNewAppointment, todayNumber}) => {
     const classCalendarIsOpen = 'calendar-open';
     let currentDay = null;
     let iconWarning = null;
@@ -24,14 +24,20 @@ const DayContent = ({days, dayNumber, isOpen, setIsOpen, start_day_number, setNe
 
     //when a day in the calendar is clicked
     const handle_calendar_day_click = () => {
-        setIsOpen(dayNumber, !isOpen);
+        if (!isOpen) setIsOpen(dayNumber, !isOpen);
     }
 
     return(
         <time
             key={get_random_id()+dayNumber} 
-            className={'calendar__day'.concat((dayNumber === 1 ? ' calendar-'+(start_day_number).toString() : ''), ( isOpen? (' ').concat(classCalendarIsOpen) : ''), (iconWarning ? iconWarning : ''))}
-            onClick={ () => {isOpen ? null : handle_calendar_day_click()}} >
+            className={'calendar__day'.concat(
+                (dayNumber === 1 ? ' calendar-'+(start_day_number).toString() : ''),
+                ( isOpen? (' ').concat(classCalendarIsOpen) : ''),
+                (iconWarning ? iconWarning : ''),
+                (todayNumber === dayNumber ? ' calendar__today' : '')
+            )}
+            //className={'calendar__day'.concat((dayNumber === 1 ? ' calendar-'+(start_day_number).toString() : ''), ( isOpen? (' ').concat(classCalendarIsOpen) : ''), (iconWarning ? iconWarning : ''))}
+            onClick={handle_calendar_day_click}>
 
             <label className='day__number' after-content={dayNumber === 1 ? 'st' : (dayNumber === 2 ? 'nd' : (dayNumber === 3 ? 'rd' : 'th'))}>
                 {dayNumber}

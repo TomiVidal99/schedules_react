@@ -1,81 +1,71 @@
 import React, {useEffect, useState} from 'react';
 import {auth, db} from './components/Authentication';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import { getDoc } from '@firebase/firestore';
+import {Timestamp} from 'firebase/firestore';
 
 // import components
-import AuthContainer from './components/AuthContainer.js'
-import SchedulesContainer from './components/SchedulesContainer.js'
-
-//create addHours method for Date prototype
-Date.prototype.addHours = function(h){
-    this.setHours(this.getHours()+h);
-    return this;
-}
-Date.prototype.addDays = function(d){
-    this.setDate(this.getDate()+d);
-    return this;
-}
-Date.prototype.addMonth = function(m){
-    this.setMonth(this.getMonth()+m);
-    return this;
-}
-
-//date structure
-//const DATA = [
-    //{
-        //date: new Date(),
-        //days: [
-            //{
-                //date: new Date(),
-                //dates: [
-                    //{
-                        //title: 'dentist',
-                        //content: 'alsjkdaslkjñdha',
-                        //from: new Date(),
-                        //to: new Date().addHours(3),
-                    //}
-                //]
-            //}
-        //]
-    //},
-    //{
-        //date: new Date().addMonth(1),
-        //days: [
-            //{
-                //date: new Date().addDays(8),
-                //dates: [
-                    //{
-                        //title: 'dentist',
-                        //content: 'alsjkdaslkjñdha',
-                        //from: new Date().addHours(10),
-                        //to: new Date().addHours(13),
-                    //}
-                //]
-            //}
-        //]
-    //}
-//]
+import AuthContainer from './components/AuthContainer.js';
+import SchedulesContainer from './components/SchedulesContainer.js';
 
 const App = () => {
     const [user] = useAuthState(auth);
     const [uid, setUid] = useState(null);
     const [dbPathExists, setDbPathExists] = useState(false);
-    const [data, setData] = useState(null);
-    const [monthData, setMonthData] = useState(null);
+    const [data, setData] = useState(undefined);
+    const [monthData, setMonthData] = useState(undefined);
+
+    //TODO: make a remove task, and be able to go back on months
 
     //handle add new date
     const handle_add_date = (newDate) => {
-        console.log('new date!')
-        console.log(newDate);
-        console.log(monthData.days);
-        let newMonthData = monthData;
-        newMonthData.days.forEach( (day) => {
-            if (day.date.toDate().getDate() === newDate.to.toDate().getDate()) {
-                //gets the day that will have this new date
-                day.dates = [...day.dates, newDate];
+        //TODO: check if the new data doesnt overlap with some other
+
+        // if the user doesnt have any data create it
+        if (monthData === undefined) {
+            const today = new Date();
+            const newMonthData = [{
+                date: Timestamp.fromDate(today),
+                days: [{
+                    date: newDate.to,
+                    dates: [newDate]
+                }]
+            }]
+
+            setMonthData(newMonthData);
+
+        } else {
+            // if the user already has data add the new date where it corresponds
+            let newMonthData = monthData;
+
+            let foundFlag = false;
+            newMonthData.days.forEach( (day) => {
+                const monthDayNumber = day.date.toDate().getDate();
+                const newDayNumber = newDate.to.toDate().getDate();
+                if (monthDayNumber === newDayNumber) {
+                    //case when they date is beeing added to a day that already has dates
+                    day.dates = [...day.dates, newDate];
+                    //console.log('date updated: ', day.dates);
+                    foundFlag = true;
+                } 
+            });
+
+            //if the day that will have this new date doesnt already have any other dates
+            if (!foundFlag) {
+                // should make brand new date
+                newMonthData.days.push({
+                    date: newDate.to,
+                    dates: [newDate]
+                });
+                //console.log('date updated: ', newMonthData.days);
             }
-        });
-        setMonthData(newMonthData);
+
+            //console.log('newMonthData: ', newMonthData);
+            setMonthData({
+                date: newMonthData.date,
+                days: newMonthData.days,
+            });
+        }
     }
 
     //set the data for the current month once the total data has been retrieved
@@ -113,33 +103,47 @@ const App = () => {
         const userId = user.multiFactor.user.uid;
         setUid(userId);
 
-        db.collection('data').get()
-            .then( (querySnapshot) => {
-                const data = querySnapshot.docs.map( doc => doc.data());
-                if (data[0]) {
-                    //if the data exists retrieve it
-                    //console.log(data[0])
-                    setData(data[0].data);
-                    setDbPathExists(true);
+        const docRef = db.collection('data').doc(userId);
+
+        //retrieves data from db and store it in components state
+        getDoc(docRef)
+            .then( (docSnap) => {
+                const data = docSnap.data();
+                //the user has data
+                if (data) {
+                    console.log('data: ', data);
+                    setData(data.data);
                 }
             })
-            .catch( (error) => {
-                console.error("Error reading document: ", error);
-            });
-
-        //db.collection('data').doc(userId).set({ DATA }, { merge: true });
+            .catch( (err) => {
+                console.log(err)} 
+            );
 
     }, [user]);
 
     // store user's data in the data base
     useEffect( () => {
 
+        console.log('got new month data: ', monthData);
+        //console.log('updating data');
+
         if (!user || monthData.length === 0 || !uid) return;
+
+        //updates data
+        let Data;
+        if (data === undefined) {
+            Data = monthData;
+        } else {
+            Data = [...data.filter( (monthD) => monthD.date !== monthData.date), monthData];
+        }
+        setData(Data);
+
+        console.log('data: ', Data);
 
         //if the data base path exists update data, else create the new path
         if (dbPathExists){
             // exists
-            db.collection('data').doc(uid).update({ data })
+            db.collection('data').doc(uid).update({ data: [...Data] })
                 .then( () => {
                     //console.log("Document successfully written!");
                 })
@@ -148,7 +152,7 @@ const App = () => {
                 });
         } else {
             // create the path
-            db.collection('data').doc(uid).set({ data }, { merge: true });
+            db.collection('data').doc(uid).set({ data: [...Data] }, { merge: true });
             setDbPathExists(true);
         }
 

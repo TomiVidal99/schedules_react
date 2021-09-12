@@ -229,7 +229,10 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     font-family: var(--ff-h1);
     font-weight: var(--fw-h6);
     color: rgb(0 0 0 / .65);
-    transition: background .3s ease-in-out, width 2s ease-in-out, height 2s ease-in-out;
+    transition: 
+        /*width 2s ease-in-out,*/
+        /*height 2s ease-in-out,*/
+        background .3s ease-in-out;
     min-height: 12vh;
     height: 100%;
     width: 100%;
@@ -244,6 +247,15 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 .icon-warning:hover {
     color: rgb(0 0 0 / .4);
 }
+.calendar__today {
+    background-color: rgb(93 119 138 / .8);
+}
+.calendar__today:hover::after {
+    content: 'today';
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ calendar open ~~~~~*/
 .calendar-open {
     position: absolute;
     top: 0;
@@ -371,10 +383,19 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     grid-column: 2 / span 1;
     background-color: rgb( 100 100 20 / .1);
 }
-.dates__date::before {
-    content: '- ';
-    color: var(--palette-c4);
-    font-weight: var(--fw-h1);
+/*.dates__date::before {*/
+    /*content: '- ';*/
+    /*color: var(--palette-c4);*/
+    /*font-weight: var(--fw-h1);*/
+/*}*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tags inside the date component ~~~~~*/
+.date__title {
+    margin: 0;
+    padding: 0;
+}
+.date__content {
+    margin: 0;
+    padding: 0;
 }
 
 .day__hour {
@@ -513,7 +534,6 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     outline: none;
     border: 1px solid transparent;
     width: 100%;
-    text-align: center;
     font-family: var(--ff-p);
     cursor: pointer;
 }
@@ -528,4 +548,54 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 .fieldset__btn-add:disabled {
     filter: brightness(.65);
     cursor: default;
+}
+
+/*custom styling for the input type 'time'*/
+input[type=time] {
+    --numbers-color: #000;
+    --numbers-bg: #eee;
+    --midtime-bg: #0e7bca;
+    --midtime-color: #fff;
+    text-align: center;
+}
+/* Wrapper around the hour, minute, second, and am/pm fields as well as 
+the up and down buttons and the 'X' button */
+/*input[type=time]::-webkit-datetime-edit-fields-wrapper {*/
+/*}*/
+/* The space between the fields - between hour and minute, the minute and 
+second, second and am/pm */
+input[type=time]::-webkit-datetime-edit-text {
+  padding: .4em .5em;
+}
+/* Hour and Minutes */
+input[type=time]::-webkit-datetime-edit-minute-field,
+input[type=time]::-webkit-datetime-edit-hour-field {
+  background-color: var(--numbers-bg);
+  border-radius: 5px;
+  padding: .5em .6em;
+}
+/* AM/PM */
+input[type=time]::-webkit-datetime-edit-ampm-field {
+  color: var(--midtime-color);
+  background-color: var(--midtime-bg);
+  border-radius: 5px;
+  padding: .5em .6em;
+}
+/* 'X' button for resetting/clearing time */
+input[type=time]::-webkit-clear-button {
+  display: none;
+}
+/* Up/Down arrows for incrementing/decrementing the value */
+input[type=time]::-webkit-inner-spin-button {
+  display: none;
+}
+/* clock that pops on click */
+input[type="time"]::-webkit-calendar-picker-indicator {
+   filter: invert(0.5) sepia(1) saturate(60) hue-rotate(200deg);
+   cursor: pointer;
+   padding: .5em .6em;
+   justify-self: center;
+   border-radius: 5px;
+   align-self: center;
+   border: 1px solid var(--midtime-color);
 }

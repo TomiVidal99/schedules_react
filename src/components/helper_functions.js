@@ -1,7 +1,7 @@
 //some helper functions
 
 const get_random_id = () => {
-    return(Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1));
+    return(Math.floor((1 + Math.random()) * 0x100000000).toString(16).substring(1));
 }
 
 const get_days_of_month = (month, year) => {
@@ -13,7 +13,8 @@ const get_random_hsl = (saturation, light) => {
     return `hsl(${random_hue}, ${saturation}%, ${light}%)`;
 }
 
-const helper_get_total_quarters = (date) => {
+const get_total_quarters_of_hours = (date) => {
+    //console.log(date);
     //returns the total sum of quarters of hours has this date
     const hours = (4*date.getHours());
     const minutes = Math.round(date.getMinutes() / 15);
@@ -24,5 +25,5 @@ export {
     get_random_id,
     get_days_of_month,
     get_random_hsl,
-    helper_get_total_quarters
+    get_total_quarters_of_hours
 }
