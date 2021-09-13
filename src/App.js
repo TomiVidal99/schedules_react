@@ -97,7 +97,11 @@ const App = () => {
     useEffect(() => {
 
         //case when logout
-        if (!user) return;
+        if (!user) {
+            setData([]);
+            setMonthData({})
+            return;
+        }
 
         // set user id
         const userId = user.multiFactor.user.uid;
