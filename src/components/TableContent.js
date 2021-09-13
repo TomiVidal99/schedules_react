@@ -4,7 +4,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import DayContent from './DayContent';
 import { get_days_of_month, get_random_id } from "./helper_functions";
 
-const TableContent = ({monthData, setNewAppointment, userClickedOutside, setCurrentDay}) => {
+const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClickedOutside, setCurrentDay}) => {
     const currentDate = new Date();
     const currentYear = currentDate.getYear();
     const currentMonth = currentDate.getMonth();

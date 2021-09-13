@@ -161,7 +161,7 @@ const App = () => {
     return(
         <main className="main">
             <AuthContainer user={user} />
-            <SchedulesContainer monthData={monthData} updateMonthData={(newDate) => handle_add_date(newDate)} />
+            <SchedulesContainer isAuthenticated={user ? true : false} monthData={monthData} updateMonthData={(newDate) => handle_add_date(newDate)} />
         </main>
     )
 }

@@ -64,6 +64,7 @@ const SchedulesContainer = ({monthData, updateMonthData}) => {
                 </div>
                 <div className="schedules__body">
                     <TableContent 
+                        isAuthenticated={isAuthenticated}
                         monthData={monthData}
                         setNewAppointment={handle_toggle_appointment}
                         userClickedOutside={handle_user_clicked_outside}

@@ -5,7 +5,7 @@ const AuthContainer = ({user}) => {
 
     const login_container = (
         <button onClick={handle_signin_google} className="btn login_btn auth__btn">
-            login with google
+            login
         </button>
     );
 
