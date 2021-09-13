@@ -22,15 +22,15 @@ const App = () => {
         //TODO: check if the new data doesnt overlap with some other
 
         // if the user doesnt have any data create it
-        if (monthData === undefined) {
+        if (monthData === undefined || Object.entries(monthData).length === 0) {
             const today = new Date();
-            const newMonthData = [{
+            const newMonthData = {
                 date: Timestamp.fromDate(today),
                 days: [{
                     date: newDate.to,
                     dates: [newDate]
                 }]
-            }]
+            };
 
             setMonthData(newMonthData);
 
@@ -39,6 +39,7 @@ const App = () => {
             let newMonthData = monthData;
 
             let foundFlag = false;
+
             newMonthData.days.forEach( (day) => {
                 const monthDayNumber = day.date.toDate().getDate();
                 const newDayNumber = newDate.to.toDate().getDate();
@@ -49,6 +50,7 @@ const App = () => {
                     foundFlag = true;
                 } 
             });
+            
 
             //if the day that will have this new date doesnt already have any other dates
             if (!foundFlag) {
@@ -115,7 +117,7 @@ const App = () => {
                 const data = docSnap.data();
                 //the user has data
                 if (data) {
-                    console.log('data: ', data);
+                    //console.log('data: ', data);
                     setData(data.data);
                 }
             })
@@ -128,7 +130,7 @@ const App = () => {
     // store user's data in the data base
     useEffect( () => {
 
-        console.log('got new month data: ', monthData);
+        //console.log('got new month data: ', monthData);
         //console.log('updating data');
 
         if (!user || monthData.length === 0 || !uid) return;
@@ -142,7 +144,7 @@ const App = () => {
         }
         setData(Data);
 
-        console.log('data: ', Data);
+        //console.log('data: ', Data);
 
         //if the data base path exists update data, else create the new path
         if (dbPathExists){
@@ -165,7 +167,12 @@ const App = () => {
     return(
         <main className="main">
             <AuthContainer user={user} />
-            <SchedulesContainer isAuthenticated={user ? true : false} monthData={monthData} updateMonthData={(newDate) => handle_add_date(newDate)} />
+            <SchedulesContainer 
+                isAuthenticated={user ? true : false}
+                monthData={monthData}
+                updateMonthData={(newDate) => handle_add_date(newDate)}
+                setMonthData={(newData) => {setMonthData(newData)}}
+            />
         </main>
     )
 }

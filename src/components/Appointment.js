@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {get_random_id} from './helper_functions';
 
 const Appointment = ({submit_callback, close_window}) => {
     const [title, setTitle] = useState('');
@@ -77,7 +78,7 @@ const Appointment = ({submit_callback, close_window}) => {
                     To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" step="900" />
                 </label>
                 {!canSendData ? <label className="disabled-bt-description">More information required.</label> : null}
-                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput})}}>Add</button>
+                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput, id: get_random_id()})}}>Add</button>
             </fieldset>
         </section>
     )

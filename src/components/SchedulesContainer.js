@@ -5,9 +5,42 @@ import { Timestamp } from 'firebase/firestore';
 import TableContent from './TableContent';
 import Appointment from './Appointment'
 
-const SchedulesContainer = ({monthData, updateMonthData}) => {
+const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMonthData}) => {
     const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
     const [currentDay, setCurrentDay] = useState(undefined);
+
+    // remove an appointment when the user clicks the remove button
+    const handle_remove_appointment = (id, dayNumber) => {
+        //console.log('remove: ', id, dayNumber);
+
+        // get day that holds the date be removed
+        let day;
+        monthData.days.forEach( (d) => {
+            if (d.date.toDate().getDate() === dayNumber) {
+                day = d;
+            }
+        });
+
+        //removes the appointment
+        let newDayDates = [...day.dates.filter( (d) => d.id !== id )];
+
+        //updates the db and the state
+        setMonthData({
+            date: monthData.date,
+            days: [
+                ...monthData.days.filter( (d) => d !== day ),
+                {
+                    date: day.date,
+                    dates: newDayDates
+                }
+            ]
+        });
+
+    }
+
+    const handle_edit_appointment = (id, year, month) => {
+        console.log('edit: ', id);
+    }
 
     //when the user clicks to submit a new appointment inside the appointments window
     const handle_submit_appointment = (newDate) => {
@@ -66,9 +99,11 @@ const SchedulesContainer = ({monthData, updateMonthData}) => {
                     <TableContent 
                         isAuthenticated={isAuthenticated}
                         monthData={monthData}
-                        setNewAppointment={handle_toggle_appointment}
                         userClickedOutside={handle_user_clicked_outside}
                         setCurrentDay={(dayNumber) => {setCurrentDay(dayNumber)}}
+                        setNewAppointment={handle_toggle_appointment}
+                        removeAppointment={ (id, dayNumber) => {handle_remove_appointment(id, dayNumber)}}
+                        editAppointment={handle_edit_appointment}
                     />
                     {isAppointmentOpen ? <Appointment
                         submit_callback={ (newDate) => {handle_submit_appointment(newDate)}}
