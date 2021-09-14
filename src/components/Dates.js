@@ -34,7 +34,7 @@ const Dates = ({isAuthenticated, dates, hours, setIsOpen, setNewAppointment, rem
                                             {date.title}
                                         </h5>
                                         <p className="date__content">{date.content}</p>
-                                        <button onClick={editAppointment} className="date__btn date__edit-btn"><img className="btn-image" alt="edit appointment" src={process.env.PUBLIC_URL+'edit-icon.svg'}/></button>
+                                        <button onClick={ () => {editAppointment(date.id)}} className="date__btn date__edit-btn"><img className="btn-image" alt="edit appointment" src={process.env.PUBLIC_URL+'edit-icon.svg'}/></button>
                                     </div>
                                 </li>)
                         })

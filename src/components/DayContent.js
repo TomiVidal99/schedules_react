@@ -50,7 +50,7 @@ const DayContent = ({ isAuthenticated, days, dayNumber, isOpen, setIsOpen, start
                         hours={hours}
                         setNewAppointment={setNewAppointment} 
                         removeAppointment={(id) => {removeAppointment(id, dayNumber)}}
-                        editAppointment={editAppointment}
+                        editAppointment={(id) => editAppointment(id, dayNumber)}
                     /> 
                     : null}
         </time>

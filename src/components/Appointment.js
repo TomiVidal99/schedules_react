@@ -1,12 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import {get_random_id} from './helper_functions';
 
-const Appointment = ({submit_callback, close_window}) => {
+const Appointment = ({submit_callback, edited_callback, close_window, dateData, isEditing}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [toInput, setToInput] = useState(undefined);
     const [fromInput, setFromInput] = useState(undefined);
     const [canSendData, setCanSetData] = useState(false);
+
+    //populate the data of the inputs when the users wants to edit date
+    useEffect( () => {
+
+        if (!dateData) return;
+
+        const {dataTitle, dataContent, dataTo, dataFrom} = dateData;
+        setTitle(dataTitle);
+        setContent(dataContent);
+        setToInput(`${dataTo.toDate().getHours()}:${dataTo.toDate().getMinutes()}`);
+        setFromInput(`${dataFrom.toDate().getHours()}:${dataFrom.toDate().getMinutes()}`);
+
+    }, [dateData]);
+
+    //triggered when the user clicks send data
+    const handle_submit_date = () => {
+        const newDate = {
+            title: title,
+            content: content,
+            from: fromInput,
+            to: toInput,
+            id: get_random_id()
+        };
+        if (isEditing) {
+            // when the users is editing the date dont create a new one
+            edited_callback(newDate);
+        } else {
+            // when the user submits an edited date
+            submit_callback(newDate);
+        }
+    }
 
     //check every time the input data changes if the data can be used
     useEffect(() => {
@@ -78,7 +109,7 @@ const Appointment = ({submit_callback, close_window}) => {
                     To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" step="900" />
                 </label>
                 {!canSendData ? <label className="disabled-bt-description">More information required.</label> : null}
-                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput, id: get_random_id()})}}>Add</button>
+                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={handle_submit_date}>Add</button>
             </fieldset>
         </section>
     )

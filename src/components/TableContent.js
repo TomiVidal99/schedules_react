@@ -55,7 +55,7 @@ const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClicke
                             setNewAppointment={setNewAppointment}
                             todayNumber={currentDate.getDate()}
                             removeAppointment={ (id, dayNumber) => {removeAppointment(id, dayNumber)}}
-                            editAppointment={editAppointment}
+                            editAppointment={(id, dayNumber) => {editAppointment(id, dayNumber)}}
                         />)
                         
                 } )
