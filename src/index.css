@@ -18,8 +18,8 @@
     --fs-p: 1.125rem;
     --fs-h1: 6rem;
     --fs-h2: 2.8125rem;
-    --fs-h3: 2.1125rem;
-    --fs-h4: 2.2125rem;
+    --fs-h3: 1.75rem;
+    --fs-h4: 1.5rem;
     --fs-h5: 1.3125rem;
     --fs-h6: 1.125rem;
 
@@ -48,6 +48,7 @@
     --color-add-btn: rgb(255 255 255 / .9);
     --bg-add-btn: rgb(100 205 80 / 1);
     --bg-close-btn: rgb(200 80 80 / 1);
+    --bg-add-btn-warning: rgb( 200 200 100 / 1);
 
 }
 
@@ -66,6 +67,22 @@ h4 {font-size: var(--fs-h4); font-family: var(--ff-h4); font-weight: var(--fw-h4
 h5 {font-size: var(--fs-h5); font-family: var(--ff-h5); font-weight: var(--fw-h5);}
 h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6);}
 
+/*style for the scrolls*/
+*::-webkit-scrollbar {
+    background: var(--palette-c1);
+}
+*::-webkit-scrollbar-thumb {
+    color: var(--palette-c1);
+}
+*::-webkit-scrollbar-track {
+    color: var(--palette-c1);
+}
+*::-webkit-scrollbar-button {
+
+}
+*::-webkit-scrollbar-corner {
+
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HELPER CLASSES ~~~~~*/
 .row {display: flex; flex-direction: row;}
@@ -79,11 +96,13 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 .italic {font-size: italic;}
 .w-100 {width: 100%;}
 .ta-c {text-align: center;}
+.btn-image {max-width: 64px; max-height: 64px;}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~*/
 .main {
     /*background: var(--palette-c1);*/
-    background: url('./schedules-background.png') no-repeat center local;
+    background: url('./schedules-background.png');
+    background-size: cover;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -122,16 +141,19 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     font-size: var(--fs-h6);
     font-family: var(--ff-h6);
     font-weight: var(--fw-h1);
-    border: none;
     border-radius: 6px;
     cursor: pointer;
     max-height: 25%;
     text-overflow: clip;
     overflow: hidden;
     outline: none;
+    border: none;
 }
 .btn:hover {
     filter: brightness(1.5);
+}
+.btn:active {
+    padding: .5em .6em;
 }
 .auth__btn {
     margin: 0 auto 6% auto;
@@ -184,6 +206,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 .schedules-container {
     width: 95%;
     max-height: 75vh;
+    max-width: 1250px;
 }
 
 .schedules__header {
@@ -229,10 +252,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     font-family: var(--ff-h1);
     font-weight: var(--fw-h6);
     color: rgb(0 0 0 / .65);
-    transition: 
-        /*width 2s ease-in-out,*/
-        /*height 2s ease-in-out,*/
-        background .3s ease-in-out;
+    transition: all .3s ease-in-out;
     min-height: 12vh;
     height: 100%;
     width: 100%;
@@ -249,7 +269,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
 }
 .calendar__today {
     background-color: rgb(93 119 138 / .8);
-    border-color: var(--palette-c1);
+    border-color: var(--palette-c5);
 }
 .calendar__today:hover::after {
     content: '  today';
@@ -276,6 +296,19 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     cursor: default;
     padding: .8em .4em;
     box-shadow: 0 0 10000px black;
+}
+@media (max-width: 750px) {
+    .calendar-open {
+        grid-template-rows: min-content min-content auto !important;
+        width: 100vw;
+        height: 100vh;
+        transform: translate(0, 0);
+    }
+    .day__number, .btn-remove {grid-row: 1 / span 1 !important;}
+    .btn-add {grid-row: 2 / span 1 !important; max-width: 50% !important;}
+    .btn__label {font-size: small !important;}
+    .btn-add::after {display: none !important;}
+    .day__dates {grid-row: 3 / span 1 !important;}
 }
 .calendar-open::after {
     display: none;
@@ -311,8 +344,12 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     cursor: pointer;
 }
 .dates__btn:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.125);
     color: #fff;
+    transform: scale(1.125, 1.125);
+}
+.dates__btn:active {
+    transform: scale(1.05, 1.05);
 }
 
 /*style for the button that adds appointments*/
@@ -349,7 +386,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     color: var(--palette-c4);
 }
 .icon-warning::after {
-    content: url('https://api.iconify.design/akar-icons/circle-alert.svg?color=white');
+    content: url('warning-white.svg');
     margin-left: .8em;
 }
 
@@ -379,6 +416,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     grid-row: 2 / span 1;
     counter-reset: hours;
     counter-set: hours -1;
+    overflow: hidden;
 }
 .dates__date {
     font-size: var(--fs-p);
@@ -387,20 +425,103 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     text-align: center;
     grid-column: 2 / span 1;
     background-color: rgb( 100 100 20 / .1);
+    overflow-x: auto;
+    overflow-y: hidden;
+    transition: all .5s ease-in-out;
+    cursor: pointer;
 }
-/*.dates__date::before {*/
-    /*content: '- ';*/
-    /*color: var(--palette-c4);*/
-    /*font-weight: var(--fw-h1);*/
-/*}*/
+.dates__date:hover {
+    z-index: 400;
+    border-top: 1px solid rgb(255 255 255 / .4);
+    border-bottom: 1px solid rgb(255 255 255 / .4);
+}
+.dates__date-clicked {
+    grid-row: 1 / span 96 !important;
+    z-index: 400;
+    cursor: default;
+    width: 90%;
+    margin: 0 auto;
+    border: none !important;
+}
+.dates__date-clicked > .date__container > * {
+    display: block;
+}
+.dates__date-clicked > .date__container > .date__time-container {
+    display: flex;
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tags inside the date component ~~~~~*/
-.date__title {
+.date__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-wrap: break-word;
+}
+.date__btn {
+    border: none;
     margin: 0;
     padding: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: scale(1.6, 1.6);
+    display: none;
+}
+.date__btn:hover {
+    filter: brightness(1.125);
+    transform: scale(1.8, 1.8) rotate(346deg);
+}
+.date__btn:active {
+    transform: scale(1.7, 1.7);
+}
+.date__delete-btn {
+    background: transparent;
+    right: 5%;
+}
+.date__title {
+    font-weight: bolder;
+    margin: 0;
+    padding: 0;
+}
+.date__title::before {
+    content: '📌 “';
+}
+.date__title::after {
+    content: '”';
 }
 .date__content {
-    margin: 0;
+    font-weight: lighter;
+    margin: 2em 0;
     padding: 0;
+    display: none;
+    max-width: 75%;
+}
+.date__content::before {
+    content: attr(before-content) '  ';
+}
+.date__edit-btn {
+    background: transparent;
+    left: 5%;
+}
+.date__time-container {
+    display: none;
+    flex-direction: column;
+    font-size: small;
+}
+@media (max-width: 700px) {
+    .date__container {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .date__btn {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 2em 0;
+    }
 }
 
 .day__hour {
@@ -481,6 +602,13 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     color: #21435c;
     overflow: hidden;
 }
+@media (max-width: 750px) {
+    .schedules__new-date {
+        width: 90vw;
+        height: 90vh;
+        transform: translate(5vw, 5vh);
+    }
+}
 /*container for the title and the close button*/
 .new-date__header {
     margin: .8em auto;
@@ -505,6 +633,12 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     min-width: 32px;
     min-height: 32px;
     background: url('https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32');
+}
+.new-date__btn-close:hover {
+    transform: scale(1.125, 1.125);
+}
+.new-date__btn-close:active {
+    transform: scale(1.05, 1.05);
 }
 
 /*fieldset*/
@@ -550,8 +684,15 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     background-color: var(--bg-add-btn);
     color: var(--color-add-btn);
 }
+.fieldset__btn-add:hover {
+    transform: scale(1.125, 1.125);
+}
+.fieldset__btn-add:active {
+    transform: scale(1.05, 1.05);
+}
 .fieldset__btn-add:disabled {
-    filter: brightness(.65);
+    filter: brightness(.85);
+    background-color: var(--bg-add-btn-warning);
     cursor: default;
 }
 

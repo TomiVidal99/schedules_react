@@ -21,9 +21,31 @@ const get_total_quarters_of_hours = (date) => {
     return hours + minutes + 1;
 }
 
+//return the numerical in decimal value of an input.value date
+const get_time_from_inputs = (inputValue) => {
+    const [hours, minutes] = inputValue.split(':');
+    return([
+        parseInt(hours, 10),
+        parseInt(minutes, 10),
+    ]);
+}
+
+//updates time on a date object
+const helper_update_dateTime_on_date = (dateTime, hours, minutes) => {
+    dateTime.setHours(hours);
+    dateTime.setMinutes(minutes);
+}
+
+const parse_date = (date) => {
+    return(`${date.getHours() < 10 ? '0' : ''}${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()} ${date.getHours() < 13 ? 'AM' : 'PM'}`);
+}
+
 export {
     get_random_id,
     get_days_of_month,
     get_random_hsl,
-    get_total_quarters_of_hours
+    get_total_quarters_of_hours,
+    get_time_from_inputs,
+    helper_update_dateTime_on_date,
+    parse_date
 }

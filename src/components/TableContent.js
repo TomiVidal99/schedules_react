@@ -4,7 +4,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import DayContent from './DayContent';
 import { get_days_of_month, get_random_id } from "./helper_functions";
 
-const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClickedOutside, setCurrentDay}) => {
+const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClickedOutside, setCurrentDay, removeAppointment, editAppointment}) => {
     const currentDate = new Date();
     const currentYear = currentDate.getYear();
     const currentMonth = currentDate.getMonth();
@@ -45,6 +45,7 @@ const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClicke
                 days.map( (day) => {
                     return(
                         <DayContent
+                            isAuthenticated={isAuthenticated}
                             key={get_random_id()}
                             days={monthData ? monthData.days : null}
                             dayNumber={day.number}
@@ -53,6 +54,8 @@ const TableContent = ({isAuthenticated, monthData, setNewAppointment, userClicke
                             start_day_number={start_day_number}
                             setNewAppointment={setNewAppointment}
                             todayNumber={currentDate.getDate()}
+                            removeAppointment={ (id, dayNumber) => {removeAppointment(id, dayNumber)}}
+                            editAppointment={(id, dayNumber) => {editAppointment(id, dayNumber)}}
                         />)
                         
                 } )

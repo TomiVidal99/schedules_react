@@ -1,14 +1,66 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
+import {get_random_id} from './helper_functions';
 
-const Appointment = ({submit_callback, close_window}) => {
+const Appointment = ({submit_callback, edited_callback, close_window, dateData, isEditing}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [toInput, setToInput] = useState(undefined);
     const [fromInput, setFromInput] = useState(undefined);
     const [canSendData, setCanSetData] = useState(false);
+    const inputFromRef = useRef();
+    const inputToRef = useRef();
+
+    const newAppointmentMessage = 'Add a new appointment';
+    const editAppointmentMessage = 'Edit appointment';
+
+    //populate the data of the inputs when the users wants to edit date
+    useEffect( () => {
+
+        if (!isEditing) {
+            setToInput('00:00');
+            setFromInput('00:00');
+        } else {
+            const {title, content, to, from} = dateData.date;
+            setTitle(title);
+            setContent(content);
+            const toTime = `${to.toDate().getHours() < 10 ? '0' : ''}${to.toDate().getHours()}:${to.toDate().getMinutes() < 10 ? '0' : ''}${to.toDate().getMinutes()}`;
+            const fromTime = `${from.toDate().getHours() < 10 ? '0' : ''}${from.toDate().getHours()}:${from.toDate().getMinutes() < 10 ? '0' : ''}${from.toDate().getMinutes()}`;
+
+            // updates the inputs values: TODO: (BUG) for some reason the state wont do it???
+            // These two lines would be if the state would of update it:
+            //--------------
+            setFromInput(fromTime);
+            setToInput(toTime);
+            //---------------
+
+            inputFromRef.current.value = fromTime;
+            inputToRef.current.value = toTime;
+
+        }
+
+    }, [dateData]);
+
+    //triggered when the user clicks send data
+    const handle_submit_date = () => {
+        const newDate = {
+            title: title,
+            content: content,
+            from: fromInput,
+            to: toInput,
+            id: get_random_id()
+        };
+        if (isEditing) {
+            // when the users is editing the date dont create a new one
+            edited_callback(newDate);
+        } else {
+            // when the user submits an edited date
+            submit_callback(newDate);
+        }
+    }
 
     //check every time the input data changes if the data can be used
     useEffect(() => {
+
         //check if the user has set a title 
         if (title === '') {
             setCanSetData(false);
@@ -59,7 +111,7 @@ const Appointment = ({submit_callback, close_window}) => {
     return(
         <section className="schedules__new-date" >
             <div className="new-date__header">
-                <h6 className="new-date__title">Add a new appointment</h6>
+                <h6 className="new-date__title">{isEditing ? editAppointmentMessage : newAppointmentMessage}</h6>
                 <button className="btn new-date__btn-close" onClick={close_window}></button>
             </div>
             <fieldset className="new-date__fieldset">
@@ -71,13 +123,13 @@ const Appointment = ({submit_callback, close_window}) => {
                     Content:<textarea value={content} onChange={(e) => {handle_content_change(e)}} className="fieldset__input" type="textbox" id="content" name="content" />
                 </label>
                 <label className="fieldset__label" htmlFor="from">
-                    From:<input onChange={(e) => {handle_from_update(e)}} className="fieldset__input" type="time" id="from" name="from" step="900" />
+                    From:<input ref={inputFromRef} onChange={(e) => {handle_from_update(e)}} className="fieldset__input" type="time" id="from" name="from" step="900" />
                 </label>
                 <label className="fieldset__label" htmlFor="to">
-                    To:<input onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" step="900" />
+                    To:<input ref={inputToRef} onChange={(e) => {handle_to_update(e)}} className="fieldset__input" type="time" id="to" name="to" step="900" />
                 </label>
                 {!canSendData ? <label className="disabled-bt-description">More information required.</label> : null}
-                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={() => {submit_callback({title: title, content: content, from: fromInput, to: toInput})}}>Add</button>
+                <button disabled={!canSendData} className="btn fieldset__btn-add" onClick={handle_submit_date}>{isEditing ? 'Update' : 'Add'}</button>
             </fieldset>
         </section>
     )
