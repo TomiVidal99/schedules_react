@@ -36,6 +36,9 @@ const helper_update_dateTime_on_date = (dateTime, hours, minutes) => {
     dateTime.setMinutes(minutes);
 }
 
+const parse_date = (date) => {
+    return(`${date.getHours() < 10 ? '0' : ''}${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()} ${date.getHours() < 13 ? 'AM' : 'PM'}`);
+}
 
 export {
     get_random_id,
@@ -43,5 +46,6 @@ export {
     get_random_hsl,
     get_total_quarters_of_hours,
     get_time_from_inputs,
-    helper_update_dateTime_on_date
+    helper_update_dateTime_on_date,
+    parse_date
 }

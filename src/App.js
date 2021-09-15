@@ -7,7 +7,6 @@ import {Timestamp} from 'firebase/firestore';
 // import components
 import AuthContainer from './components/AuthContainer.js';
 import SchedulesContainer from './components/SchedulesContainer.js';
-
 const App = () => {
     const [user] = useAuthState(auth);
     const [uid, setUid] = useState(null);
@@ -19,6 +18,8 @@ const App = () => {
 
     //handle add new date
     const handle_add_date = (newDate) => {
+        //console.log({newDate});
+
         //TODO: check if the new data doesnt overlap with some other
 
         // if the user doesnt have any data create it

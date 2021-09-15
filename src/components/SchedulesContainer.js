@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Date} from './../classes/Date';
+import {get_time_from_inputs} from './helper_functions';
+import DateComponent from './DateComponent';
 
 // import components
 import TableContent from './TableContent';
@@ -8,18 +9,52 @@ import Appointment from './Appointment'
 const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMonthData}) => {
     const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
     const [currentDay, setCurrentDay] = useState(undefined);
-    const [dateData, setDateData] = useState(new Date);
+    const [dateData, setDateData] = useState(new DateComponent());
     const [isEditing, setIsEditing] = useState(false);
 
     // when the users submits and edited appointment
     const handle_edited_appointment = (editedDate) => {
+        console.log('send is edited: ', editedDate);
+        console.log('current day: ', currentDay);
 
-        setIsEditing(false);
+        // creates the date object with the right formats and stores it in dateData
+        dateData.setTitle(editedDate.title);
+        dateData.setContent(editedDate.content);
+        const [fromHours, fromMinutes] = get_time_from_inputs(editedDate.from);
+        const [toHours, toMinutes] = get_time_from_inputs(editedDate.to);
+        dateData.initializeFrom(currentDay, fromHours, fromMinutes);
+        dateData.initializeTo(currentDay, toHours, toMinutes);
+        dateData.toFirebaseDate();
+
+        console.log('dateData: ', dateData.date);
+
+        // updates the corresponding day
+        let daysIndex, datesIndex;
+        for (let i = 0; i < monthData.days.length; i++) {
+            for (let j = 0; j < monthData.days[i].dates.length; j++) {
+                if (monthData.days[i].dates[j].id === dateData.date.id) {
+                    daysIndex = i;
+                    datesIndex = j;
+                }
+            }
+        }
+        let newMonthData = monthData;
+        Object.assign(newMonthData.days[daysIndex].dates[datesIndex], dateData.date);
+
+        console.log({newMonthData});
+
+        setMonthData({
+            ...monthData,
+            ...newMonthData
+        });
+
+        handle_toggle_appointment();
+
     }
 
     // remove an appointment when the user clicks the remove button
     const handle_remove_appointment = (id, dayNumber) => {
-        //console.log('remove: ', id, dayNumber);
+        console.log('remove: ', id, dayNumber);
 
         // get day that holds the date be removed
         let day;
@@ -50,6 +85,8 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
         //console.log('edit, id: ', id);
         //console.log('day: ', dayNum);
 
+        setCurrentDay(dayNum);
+
         // get the corresponding day of the month
         let day;
         monthData.days.forEach( (Day) => {
@@ -58,32 +95,23 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
                 return;
             }
         });
-        //console.log({day});
 
         // get the corresponding date from day's dates
-        day.dates.forEach( (Date) => {
-            if (Date.id === id) {
-                dateData.updateDate(Date);
+        day.dates.forEach( (date_) => {
+            if (date_.id === id) {
+                dateData.updateDate(date_);
             }
         } );
-        console.log({dateData});
 
-        /*
-
-        // parse the date's data to math inputs data
-        const parsedDate = helper_from_firebase_date(date);
-        date = {...date, ...parsedDate};
-        const parsedTimes = helper_from_date_to_input(date);
-        date = {...date, ...parsedTimes};
+        if (!dateData.date.to) return(console.error('The date was not defined when trying to edit it.'))
 
         // updates on state
-        setDateData(date);
         setIsEditing(true);
-        */
 
         // opens the appointments menu
         handle_toggle_appointment();
 
+        setDateData(dateData);
     }
 
 
@@ -92,29 +120,23 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
     const handle_submit_appointment = (newDate) => {
         //console.log('newDate! ', newDate);
 
+        console.log(newDate);
+
         dateData.updateDate(newDate);
 
         //error handling when the day hasn't been set
         if (!currentDay) return(console.log('Current day undefined when submitting the appointment'));
 
-        const [toHours, toMinutes] = helper_parse_num_from_inputs(newDate.to);
-        const [fromHours, fromMinutes] = helper_parse_num_from_inputs(newDate.from);
+        const [toHours, toMinutes] = get_time_from_inputs(dateData.date.to);
+        const [fromHours, fromMinutes] = get_time_from_inputs(dateData.date.from);
 
-        const to = helper_new_day_date(currentDay, toHours, toMinutes);
-        const from = helper_new_day_date(currentDay, fromHours, fromMinutes);
-
-        helper_update_time(to, toHours, toMinutes);
-        helper_update_time(from, fromHours, fromMinutes);
-        newDate = {
-            ...newDate,
-            to: to,
-            from: from
-        };
-
-        newDate = {...newDate, ...helper_to_firebase_date(newDate)};
+        // creates current day
+        dateData.initializeTo(currentDay, toHours, toMinutes);
+        dateData.initializeFrom(currentDay, fromHours, fromMinutes);
+        dateData.toFirebaseDate();
 
         // sends data to parent to add the appointment
-        updateMonthData(newDate);
+        updateMonthData(dateData.date);
 
         // close the window
         handle_toggle_appointment();
@@ -148,7 +170,7 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
                         monthData={monthData}
                         userClickedOutside={handle_user_clicked_outside}
                         setCurrentDay={(dayNumber) => {setCurrentDay(dayNumber)}}
-                        setNewAppointment={handle_toggle_appointment}
+                        setNewAppointment={() => {setIsEditing(false); handle_toggle_appointment()}}
                         removeAppointment={ (id, dayNumber) => {handle_remove_appointment(id, dayNumber)}}
                         editAppointment={(day, id) => {handle_edit_appointment(day, id)}}
                     />
@@ -161,6 +183,16 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
                     /> : null}
                 </div>
             </div>
+            {/*
+            TODO: remove this
+            <button onClick={ () => {handle_submit_appointment({
+                id: get_random_id(),
+                title:'test',
+                content:'test content',
+                to: '10:30',
+                from: '20:15'
+            })}}>TEST</button>
+            */}
         </div>
     )
 }

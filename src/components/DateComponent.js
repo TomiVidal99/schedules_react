@@ -1,14 +1,14 @@
-import {get_random_id, get_time_from_inputs} from './../components/helper_functions';
+import {get_random_id} from './../components/helper_functions';
 import {Timestamp} from 'firebase/firestore/';
 
-class Date {
+export default class DateClass {
     constructor() {
         this.date = {
             id: get_random_id(),
             title: '',
             content: '',
-            to: undefined,
-            from: undefined,
+            to: null,
+            from: null,
         }
     }
 
@@ -16,8 +16,12 @@ class Date {
         this.date.title = title;
     }
 
-    setTitle = (content) => {
+    setContent = (content) => {
         this.date.content = content;
+    }
+
+    setId = (id) => {
+        this.date.id = id;
     }
 
     // updates all the date on a date
@@ -61,19 +65,34 @@ class Date {
     }
 
     // create a new date with a set day
-    initializeDateTime = (day, hours, minutes) => {
+    initializeTo = (day, hours, minutes) => {
         const now = new Date();
         now.setDate(day);
         now.setHours(hours);
         now.setMinutes(minutes);
-        this.date = now;
+        this.date.to = now;
+    }
+    initializeFrom = (day, hours, minutes) => {
+        const now = new Date();
+        now.setDate(day);
+        now.setHours(hours);
+        now.setMinutes(minutes);
+        this.date.from = now;
     }
 
     // updates time on the date
-    updateDateTime = (day, hours, minutes) => {
-        this.date.setDate(day);
-        this.date.setHours(hours);
-        this.date.setMinutes(minutes);
+    updateTo = (day, hours, minutes) => {
+        console.log({day: day, hours: hours, minutes: minutes, to: this.date.to});
+        this.date.to.setDate(day);
+        this.date.to.setHours(hours);
+        this.date.to.setMinutes(minutes);
+        this.date.toFirebaseDate();
+    }
+    updateFrom = (day, hours, minutes) => {
+        this.date.from.setDate(day);
+        this.date.from.setHours(hours);
+        this.date.from.setMinutes(minutes);
+        this.date.toFirebaseDate();
     }
         
 }
