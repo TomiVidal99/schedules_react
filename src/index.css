@@ -309,6 +309,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     .btn__label {font-size: small !important;}
     .btn-add::after {display: none !important;}
     .day__dates {grid-row: 3 / span 1 !important;}
+    .day__default-message {grid-row: 3 / span 1 !important;}
 }
 .calendar-open::after {
     display: none;
@@ -549,10 +550,12 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     font-size: var(--fs-h5);
     font-family: var(--ff-h6);
     font-weight: var(--fw-p);
+    width: 85%;
+    max-width: 600px;
     color: rgb(93 119 138 / 1);
     margin: 5em auto auto auto;
     text-align: center;
-    grid-row: 3 / span 1;
+    grid-row: 2 / span 1;
     grid-column: 2 / span 1;
     padding: 1em 1.5em;
     background-color: rgb(93 119 138 / .25);
