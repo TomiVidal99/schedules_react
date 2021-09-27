@@ -1,0 +1,26 @@
+.month-selector {
+    --month-color: var(--palette-c2);
+    --month-size: clamp(2rem, 5vmin, 5rem);
+    --month-ff: var(--ff-h1);
+    --month-fw: 600;
+
+    margin-bottom: 2em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CURRENT MONTH ~~~~~*/
+.month-selector__month {
+    margin: 0;
+    padding: 0;
+
+    font-weight: var(--month-fw);
+    color: var(--month-color);
+    font-size: var(--month-size);
+    font-family: var(--month-ff);
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ARROWS ~~~~~*/

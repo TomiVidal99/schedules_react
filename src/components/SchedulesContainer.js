@@ -5,6 +5,7 @@ import DateComponent from './DateComponent';
 // import components
 import TableContent from './TableContent';
 import Appointment from './Appointment'
+import MonthSelector from './MonthSelector'
 
 const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMonthData}) => {
     const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
@@ -154,6 +155,7 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
 
     return(
         <div className="schedules-container">
+            <MonthSelector month={monthData} />
             <div className="schedules-table">
                 <div className="schedules__header">
                     <h3>Monday</h3>
