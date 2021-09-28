@@ -137,7 +137,7 @@ const App = () => {
         //console.log('got new month data: ', monthData);
         //console.log('updating data');
 
-        if (!user || monthData.length === 0 || !uid) return;
+        if (isChangingMonth || !user || monthData.length === 0 || !uid) return;
 
         //updates data
         let Data;
@@ -171,6 +171,21 @@ const App = () => {
     // set prev/next month
     const gotoMonth = ({month, year}) => {
         console.log(`Changing month: ${month}/${year}`);
+        console.log(month, year);
+
+        if (!data) return;
+
+        data.forEach( (dMonth) => {
+            console.log(dMonth);
+            const formattedDate = dMonth.date.toDate();
+            const y = formattedDate.getFullYear();
+            const m = formattedDate.getMonth();
+
+            if (m === month && y === year) {
+                console.log('got matched data: ');
+            }
+
+        });
 
     }
 

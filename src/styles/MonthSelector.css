@@ -1,8 +1,9 @@
 .month-selector {
     --month-color: var(--palette-c2);
-    --month-size: clamp(1rem, 2.4vmax, 3rem);
+    --month-size: clamp(1rem, 2.4vmax, 2.2rem);
     --month-ff: var(--ff-h1);
     --month-fw: 600;
+    --year-size: clamp(1rem, 2vmax, 1.9rem);
 
     margin-bottom: .6em;
 
@@ -13,14 +14,36 @@
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CURRENT MONTH ~~~~~*/
-.month-selector__month {
+.data-container {
+    height: 10vh;
+    width: 30vw;
     margin: 0 5vmax;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.date-container__month {
+    margin: 0;
     padding: 0;
 
+    text-align: center;
     user-select: none;
     font-weight: var(--month-fw);
     color: var(--month-color);
     font-size: var(--month-size);
+    font-family: var(--month-ff);
+}
+
+.date-container__year {
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+    user-select: none;
+    font-weight: var(--month-fw);
+    color: var(--month-color);
+    font-size: var(--year-size);
     font-family: var(--month-ff);
 }
 

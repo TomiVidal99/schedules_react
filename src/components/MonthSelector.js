@@ -78,8 +78,11 @@ const MonthSelector = ({month, gotoMonth}) => {
             <div onClick={handlePrevMonth} className="arrow month-selector__left-arrow">
                 <ArrowSVG/>
             </div>
-            <h2 className="arrow month-selector__month">{months[currentMonth]}</h2>
-            <div onClick={handleNextMonth} className="month-selector__right-arrow">
+            <div className="month-selector__date-container">
+                <h2 className="date-container__month">{months[currentMonth]}</h2>
+                <h6 className="date-container__year">{currentYear}</h6>
+            </div>
+            <div onClick={handleNextMonth} className="arrow month-selector__right-arrow">
                 <ArrowSVG/>
             </div>
         </div>

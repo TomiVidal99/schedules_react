@@ -3,7 +3,7 @@ import { get_random_id, get_random_hsl, get_total_quarters_of_hours, parse_date 
 
 const Dates = ({isAuthenticated, dates, hours, setIsOpen, setNewAppointment, removeAppointment, editAppointment}) => {
     const defaultMessageAuth = 'No appointments this day 🙂';
-    const defaultMessageNoAuth = 'To add new appointments log in please. Thank you  🔐🙂';
+    const defaultMessageNoAuth = 'To add new appointments please log in. Thank you  🔐🙂';
     const [isClicked, setIsClicked] = useState(false);
 
     return(
