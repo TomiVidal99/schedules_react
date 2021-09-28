@@ -7,7 +7,7 @@ import TableContent from './TableContent';
 import Appointment from './Appointment'
 import MonthSelector from './MonthSelector'
 
-const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMonthData}) => {
+const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMonthData, gotoMonth}) => {
     const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
     const [currentDay, setCurrentDay] = useState(undefined);
     const [dateData, setDateData] = useState(new DateComponent());
@@ -155,7 +155,10 @@ const SchedulesContainer = ({monthData, updateMonthData, isAuthenticated, setMon
 
     return(
         <div className="schedules-container">
-            <MonthSelector month={monthData} />
+            <MonthSelector 
+                month={monthData}
+                gotoMonth={(payload) => {gotoMonth(payload);}} 
+            />
             <div className="schedules-table">
                 <div className="schedules__header">
                     <h3>Monday</h3>

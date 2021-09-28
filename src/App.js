@@ -13,12 +13,15 @@ const App = () => {
     const [dbPathExists, setDbPathExists] = useState(false);
     const [data, setData] = useState(undefined);
     const [monthData, setMonthData] = useState(undefined);
+    const [isChangingMonth, setIsChangingMonth] = useState(false);
 
     //TODO: make a remove task, and be able to go back on months
 
     //handle add new date
     const handle_add_date = (newDate) => {
         //console.log({newDate});
+
+        setIsChangingMonth(false);
 
         //TODO: check if the new data doesnt overlap with some other
 
@@ -165,6 +168,12 @@ const App = () => {
 
     }, [monthData])
 
+    // set prev/next month
+    const gotoMonth = ({month, year}) => {
+        console.log(`Changing month: ${month}/${year}`);
+
+    }
+
     return(
         <main className="main">
             <AuthContainer user={user} />
@@ -173,6 +182,7 @@ const App = () => {
                 monthData={monthData}
                 updateMonthData={(newDate) => handle_add_date(newDate)}
                 setMonthData={(newData) => {setMonthData(newData)}}
+                gotoMonth={ (payload) => {gotoMonth(payload);}}
             />
         </main>
     )

@@ -126,6 +126,7 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     transition: transform 1s ease-in-out;
     transform: translate(0, -40%);
     justify-content: flex-end;
+    user-select: none;
 }
 .auth-container:hover {
     transform: translate(0, 0);
@@ -208,12 +209,19 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     max-height: 75vh;
     max-width: 1250px;
 }
+/*adapt for mobiles*/
+@media (max-width: 600px) {
+    .schedules-container {
+        width: 100%;
+    }
+}
 
 .schedules__header {
     grid-template-rows: auto;
     border: 1px solid rgb(0 0 0 / .2);
     margin-bottom: 1em;
     background-color: rgb(93 119 138 / .85);
+    user-select: none;
 }
 .schedules__header h3 {
     color: var(--palette-c4);
@@ -258,6 +266,14 @@ h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6
     width: 100%;
     grid-row-end: span 1;
     grid-column-end: span 1;
+}
+/*adapt with of day for mobiles*/
+@media (max-width: 500px) {
+    .calendar__day {
+        width: calc( 100vw / 7 );
+    }
+    .day__number {margin: 0 !important;}
+    .day__number::after {margin: 0 !important;}
 }
 .calendar__day:hover {
     background: rgb( 159 208 244 / 1);

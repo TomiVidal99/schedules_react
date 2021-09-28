@@ -1,10 +1,10 @@
 .month-selector {
     --month-color: var(--palette-c2);
-    --month-size: clamp(2rem, 5vmin, 5rem);
+    --month-size: clamp(1rem, 2.4vmax, 3rem);
     --month-ff: var(--ff-h1);
     --month-fw: 600;
 
-    margin-bottom: 2em;
+    margin-bottom: .6em;
 
     display: flex;
     justify-content: center;
@@ -14,9 +14,10 @@
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CURRENT MONTH ~~~~~*/
 .month-selector__month {
-    margin: 0;
+    margin: 0 5vmax;
     padding: 0;
 
+    user-select: none;
     font-weight: var(--month-fw);
     color: var(--month-color);
     font-size: var(--month-size);
@@ -24,3 +25,42 @@
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ARROWS ~~~~~*/
+#arrow {
+    fill: black;
+    width: clamp(2rem, 10vmin, 5.5rem);
+    height: clamp(2rem, 10vmin, 5.5rem);
+}
+#arrow,
+#arrow-left,
+#arrow-right {
+    cursor: pointer;
+}
+.month-selector__left-arrow {
+    transform: rotate(180deg);
+}
+#arrow:hover #arrow-right,
+#arrow:hover #arrow-right,
+#arrow:hover #arrow-left,
+#arrow:hover #arrow-left {
+    animation-name: arrowWiggle;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+}
+#arrow:active,
+#arrow:active #arrow-right,
+#arrow:active #arrow-right,
+#arrow:active #arrow-left,
+#arrow:active #arrow-left {
+    fill: var(--palette-c4);
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ANIMATIONS ~~~~~*/
+@keyframes arrowWiggle {
+    0% {transform: translateX(0);}
+    10% {transform: translateX(20%);}
+    20% {transform: translateX(10%);}
+    30% {transform: translateX(20%);}
+    40% {transform: translateX(10%);}
+    100% {transform: translateX(0%);}
+}
