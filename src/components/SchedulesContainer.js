@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {get_time_from_inputs} from './helper_functions';
-import DateComponent from './DateComponent';
+
+import './../styles/SchedulesContainer.css';
 
 // import components
+import DateComponent from './DateComponent';
 import TableContent from './TableContent';
 import Appointment from './Appointment'
 import MonthSelector from './MonthSelector'

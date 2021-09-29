@@ -1,6 +1,8 @@
 import React from 'react';
 import {handle_signin_google, handle_logout} from './Authentication';
 
+import './../styles/AuthContainer.css';
+
 const AuthContainer = ({user}) => {
 
     const login_container = (

@@ -21,8 +21,6 @@ const App = () => {
     const handle_add_date = (newDate) => {
         //console.log({newDate});
 
-        setIsChangingMonth(false);
-
         //TODO: check if the new data doesnt overlap with some other
 
         // if the user doesnt have any data create it
@@ -137,6 +135,8 @@ const App = () => {
         //console.log('got new month data: ', monthData);
         //console.log('updating data');
 
+        if (isChangingMonth) setIsChangingMonth(false);
+
         if (isChangingMonth || !user || monthData.length === 0 || !uid) return;
 
         //updates data
@@ -170,22 +170,34 @@ const App = () => {
 
     // set prev/next month
     const gotoMonth = ({month, year}) => {
-        console.log(`Changing month: ${month}/${year}`);
-        console.log(month, year);
+        //console.log(`Changing month: ${month}/${year}`);
+        //console.log(month, year);
 
         if (!data) return;
+        setIsChangingMonth(true);
 
+        let foundDataFlag = false;
         data.forEach( (dMonth) => {
-            console.log(dMonth);
+            //console.log(dMonth);
             const formattedDate = dMonth.date.toDate();
             const y = formattedDate.getFullYear();
             const m = formattedDate.getMonth();
 
             if (m === month && y === year) {
-                console.log('got matched data: ');
+                console.log('got matched data: ', dMonth);
+                foundDataFlag = true;
+                setMonthData(dMonth);
             }
 
         });
+
+        if (!foundDataFlag) {
+            const newDate = new Date();
+            newDate.setMonth(month);
+            newDate.setFullYear(year);
+            //console.log(monthData);
+            setMonthData({date: Timestamp.fromDate(newDate), days: []});
+        }
 
     }
 
