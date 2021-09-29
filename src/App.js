@@ -7,6 +7,7 @@ import {Timestamp} from 'firebase/firestore';
 // import components
 import AuthContainer from './components/AuthContainer.js';
 import SchedulesContainer from './components/SchedulesContainer.js';
+
 const App = () => {
     const [user] = useAuthState(auth);
     const [uid, setUid] = useState(null);
@@ -14,8 +15,6 @@ const App = () => {
     const [data, setData] = useState(undefined);
     const [monthData, setMonthData] = useState(undefined);
     const [isChangingMonth, setIsChangingMonth] = useState(false);
-
-    //TODO: make a remove task, and be able to go back on months
 
     //handle add new date
     const handle_add_date = (newDate) => {
@@ -130,10 +129,7 @@ const App = () => {
     }, [user]);
 
     // store user's data in the data base
-    useEffect( () => {
-
-        //console.log('got new month data: ', monthData);
-        //console.log('updating data');
+    useEffect(() => {
 
         if (isChangingMonth) setIsChangingMonth(false);
 
@@ -147,8 +143,6 @@ const App = () => {
             Data = [...data.filter( (monthD) => monthD.date !== monthData.date), monthData];
         }
         setData(Data);
-
-        //console.log('data: ', Data);
 
         //if the data base path exists update data, else create the new path
         if (dbPathExists){
@@ -209,7 +203,7 @@ const App = () => {
                 monthData={monthData}
                 updateMonthData={(newDate) => handle_add_date(newDate)}
                 setMonthData={(newData) => {setMonthData(newData)}}
-                gotoMonth={ (payload) => {gotoMonth(payload);}}
+                gotoMonth={ (payload) => {gotoMonth(payload)}}
             />
         </main>
     )
