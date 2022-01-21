@@ -8,6 +8,7 @@ import { Timestamp } from "firebase/firestore";
 import AuthContainer from "./components/AuthContainer.js";
 import SchedulesContainer from "./components/SchedulesContainer.js";
 import AppContext from "./AppContext";
+import { get_days_of_month } from "./components/helper_functions";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -16,6 +17,7 @@ const App = () => {
   const [data, setData] = useState(undefined);
   const [monthData, setMonthData] = useState(undefined);
   const [isChangingMonth, setIsChangingMonth] = useState(false);
+  const [totalDaysInTheMonth, setTotalDaysInTheMonth] = useState([]);
   const [monthNumber, setMonthNumber] = useState(0);
   const [yearNumber, setYearNumber] = useState(0);
 
@@ -172,6 +174,7 @@ const App = () => {
   const gotoMonth = ({ month, year }) => {
     //console.log(`Changing month: ${month}/${year}`);
     //console.log(month, year);
+    //get_days_of_month(month, year);
 
     if (!data) return;
     setIsChangingMonth(true);
@@ -197,11 +200,27 @@ const App = () => {
       //console.log(monthData);
       setMonthData({ date: Timestamp.fromDate(newDate), days: [] });
     }
+
+    setTotalDaysInTheMonth(get_days_of_month(month, year));
   };
+
+  // update the amount of days for the current month.
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getYear();
+    const currentMonth = currentDate.getMonth();
+    setTotalDaysInTheMonth(get_days_of_month(currentMonth, currentYear));
+  }, []);
 
   return (
     <AppContext.Provider
-      value={{ monthNumber, setMonthNumber, yearNumber, setYearNumber }}
+      value={{
+        monthNumber,
+        setMonthNumber,
+        yearNumber,
+        setYearNumber,
+        totalDaysInTheMonth,
+      }}
     >
       <main className="main">
         <AuthContainer user={user} />

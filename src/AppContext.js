@@ -9,6 +9,7 @@ const initialValue = {
   setYearNumber: (number) => {
     console.log(number);
   },
+  totalDaysInTheMonth: 0,
 };
 
 const AppContext = createContext(initialValue);
