@@ -1,586 +1,678 @@
 :root {
+  /*main palette*/
+  --palette-c1: rgb(133 177 209 / 1);
+  --palette-c2: #30414d;
+  --palette-c3: #5d778a;
+  --palette-c4: #bbddf3;
+  --palette-c5: #84b0d0;
 
-    /*main palette*/
-    --palette-c1: rgb(133 177 209 / 1);
-    --palette-c2: #30414D;
-    --palette-c3: #5D778A;
-    --palette-c4: #BBDDF3;
-    --palette-c5: #84b0d0;
+  /*custom colors*/
+  --cc1: #fff;
+  --cc2: #2c3942;
+  --schedules-background: rgb(93 119 138 / 0.45);
+  --columns-even-bg: rgb(93 119 138 / 0.3);
+  --columns-odd-bg: rgb(93 119 138 / 0.3);
 
-    /*custom colors*/
-    --cc1: #fff;
-    --cc2: #2C3942;
-    --schedules-background: rgb(93 119 138 / .45);
-    --columns-even-bg: rgb(93 119 138 / .3);
-    --columns-odd-bg: rgb(93 119 138 / .3);
+  /*font sizes*/
+  --fs-p: 1.125rem;
+  --fs-h1: 6rem;
+  --fs-h2: 2.8125rem;
+  --fs-h3: 1.75rem;
+  --fs-h4: 1.5rem;
+  --fs-h5: 1.3125rem;
+  --fs-h6: 1.125rem;
 
-    /*font sizes*/
-    --fs-p: 1.125rem;
-    --fs-h1: 6rem;
-    --fs-h2: 2.8125rem;
-    --fs-h3: 1.75rem;
-    --fs-h4: 1.5rem;
-    --fs-h5: 1.3125rem;
-    --fs-h6: 1.125rem;
+  /*font families*/
+  --ff-p: "Nunito", sans-serif;
+  --ff-h1: "Nunito", sans-serif;
+  --ff-h2: "Nunito", sans-serif;
+  --ff-h3: "Nunito", sans-serif;
+  --ff-h4: "Nunito", sans-serif;
+  --ff-h5: "Nunito", sans-serif;
+  --ff-h6: "Nunito", sans-serif;
 
-    /*font families*/
-    --ff-p: 'Nunito', sans-serif;
-    --ff-h1: 'Nunito', sans-serif;
-    --ff-h2: 'Nunito', sans-serif;
-    --ff-h3: 'Nunito', sans-serif;
-    --ff-h4: 'Nunito', sans-serif;
-    --ff-h5: 'Nunito', sans-serif;
-    --ff-h6: 'Nunito', sans-serif;
+  /*font weights*/
+  --fw-p: 500;
+  --fw-h1: 900;
+  --fw-h2: 200;
+  --fw-h3: 500;
+  --fw-h4: 600;
+  --fw-h5: 100;
+  --fw-h6: 400;
 
-    /*font weights*/
-    --fw-p: 500;
-    --fw-h1: 900;
-    --fw-h2: 200;
-    --fw-h3: 500;
-    --fw-h4: 600;
-    --fw-h5: 100;
-    --fw-h6: 400;
+  /*other global stylings*/
+  --calendar-day-number-fs: 1.5rem;
+  --calendar-day-number-ff: Arial;
 
-    /*other global stylings*/
-    --calendar-day-number-fs: 1.5rem;
-    --calendar-day-number-ff: Arial;
+  --color-add-btn: rgb(255 255 255 / 0.9);
+  --bg-add-btn: rgb(100 205 80 / 1);
+  --bg-close-btn: rgb(200 80 80 / 1);
+  --bg-add-btn-warning: rgb(200 200 100 / 1);
 
-    --color-add-btn: rgb(255 255 255 / .9);
-    --bg-add-btn: rgb(100 205 80 / 1);
-    --bg-close-btn: rgb(200 80 80 / 1);
-    --bg-add-btn-warning: rgb( 200 200 100 / 1);
-
+  font-size: 10px;
 }
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GENERAL STYLING ~~~~~*/
 /*common general styles*/
-*, *::before, *::after {box-sizing: border-box;}
-body {margin: 0; padding: 0;}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
 
 /*just apply general styling to common tags*/
-p {font-size: var(--fs-p); font-family: var(--ff-p); font-weight: var(--fw-p);}
-h1 {font-size: var(--fs-h1); font-family: var(--ff-h1); font-weight: var(--fw-h1);}
-h2 {font-size: var(--fs-h2); font-family: var(--ff-h2); font-weight: var(--fw-h2);}
-h3 {font-size: var(--fs-h3); font-family: var(--ff-h3); font-weight: var(--fw-h3);}
-h4 {font-size: var(--fs-h4); font-family: var(--ff-h4); font-weight: var(--fw-h4);}
-h5 {font-size: var(--fs-h5); font-family: var(--ff-h5); font-weight: var(--fw-h5);}
-h6 {font-size: var(--fs-h6); font-family: var(--ff-h6); font-weight: var(--fw-h6);}
+p {
+  font-size: var(--fs-p);
+  font-family: var(--ff-p);
+  font-weight: var(--fw-p);
+}
+h1 {
+  font-size: var(--fs-h1);
+  font-family: var(--ff-h1);
+  font-weight: var(--fw-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+  font-family: var(--ff-h2);
+  font-weight: var(--fw-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+  font-family: var(--ff-h3);
+  font-weight: var(--fw-h3);
+}
+h4 {
+  font-size: var(--fs-h4);
+  font-family: var(--ff-h4);
+  font-weight: var(--fw-h4);
+}
+h5 {
+  font-size: var(--fs-h5);
+  font-family: var(--ff-h5);
+  font-weight: var(--fw-h5);
+}
+h6 {
+  font-size: var(--fs-h6);
+  font-family: var(--ff-h6);
+  font-weight: var(--fw-h6);
+}
 
 /*style for the scrolls*/
 *::-webkit-scrollbar {
-    background: var(--palette-c1);
+  background: var(--palette-c1);
 }
 *::-webkit-scrollbar-thumb {
-    color: var(--palette-c1);
+  color: var(--palette-c1);
 }
 *::-webkit-scrollbar-track {
-    color: var(--palette-c1);
+  color: var(--palette-c1);
 }
 *::-webkit-scrollbar-button {
-
 }
 *::-webkit-scrollbar-corner {
-
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HELPER CLASSES ~~~~~*/
-.row {display: flex; flex-direction: row;}
-.column {display: flex; flex-direction: column;}
-.js-c {justify-self: center;}
-.jc-c {justify-content: center;}
-.js-l {justify-self: left;}
-.js-r {justify-self: right;}
-.jc-sb {justify-content: space-between;}
-.bolder {font-weight: bolder;}
-.italic {font-size: italic;}
-.w-100 {width: 100%;}
-.ta-c {text-align: center;}
-.btn-image {max-width: 64px; max-height: 64px;}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.js-c {
+  justify-self: center;
+}
+.jc-c {
+  justify-content: center;
+}
+.js-l {
+  justify-self: left;
+}
+.js-r {
+  justify-self: right;
+}
+.jc-sb {
+  justify-content: space-between;
+}
+.bolder {
+  font-weight: bolder;
+}
+.italic {
+  font-size: italic;
+}
+.w-100 {
+  width: 100%;
+}
+.ta-c {
+  text-align: center;
+}
+.btn-image {
+  max-width: 64px;
+  max-height: 64px;
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~*/
 .main {
-    /*background: var(--palette-c1);*/
-    background: url('./schedules-background.png');
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /*background: var(--palette-c1);*/
+  background: url("./schedules-background.png");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
 .calendar__day {
-    cursor: pointer;
-    user-select: none;
-    background: rgb(93 119 138 / .45);
-    border: 1px solid rgb(93 119 138 / .6);
-    font-size: var(--fs-h6);
-    font-family: var(--ff-h1);
-    font-weight: var(--fw-h6);
-    color: rgb(0 0 0 / .65);
-    transition: all .3s ease-in-out;
-    min-height: 12vh;
-    height: 100%;
-    width: 100%;
-    grid-row-end: span 1;
-    grid-column-end: span 1;
+  cursor: pointer;
+  user-select: none;
+  background: rgb(93 119 138 / 0.45);
+  border: 1px solid rgb(93 119 138 / 0.6);
+  font-size: var(--fs-h6);
+  font-family: var(--ff-h1);
+  font-weight: var(--fw-h6);
+  color: rgb(0 0 0 / 0.65);
+  transition: all 0.3s ease-in-out;
+  min-height: calc(100% / 6);
+  height: 100%;
+  width: 100%;
+  grid-row-end: span 1;
+  grid-column-end: span 1;
 }
 /*adapt with of day for mobiles*/
 @media (max-width: 500px) {
-    .calendar__day {
-        width: calc( 100vw / 7 );
-    }
-    .day__number {margin: 0 !important;}
-    .day__number::after {margin: 0 !important;}
+  .calendar__day {
+    width: calc(100vw / 7);
+  }
+  .day__number {
+    margin: 0 !important;
+  }
+  .day__number::after {
+    margin: 0 !important;
+  }
 }
 .calendar__day:hover {
-    background: rgb( 159 208 244 / 1);
-    border: 1px solid var(--palette-c4);
-    color: rgb(0 0 0 / 1);
+  background: rgb(159 208 244 / 1);
+  border: 1px solid var(--palette-c4);
+  color: rgb(0 0 0 / 1);
 }
 .icon-warning:hover {
-    color: rgb(0 0 0 / .4);
+  color: rgb(0 0 0 / 0.4);
 }
 .calendar__today {
-    background-color: rgb(93 119 138 / .8);
-    border-color: var(--palette-c5);
+  background-color: rgb(93 119 138 / 0.8);
+  border-color: var(--palette-c5);
 }
 .calendar__today:hover::after {
-    content: '  today';
-    font-size: smaller;
-    color: var(--palette-c2);
+  content: "  today";
+  font-size: smaller;
+  color: var(--palette-c2);
 }
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ calendar open ~~~~~*/
 .calendar-open {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80vw;
-    height: 90vh;
-    transform: translate(10vw, 5vh);
-    background: rgb( 159 208 244 / 1);
-    z-index: 100;
-    color: var(--palette-c4) !important;
-    display: grid;
-    grid-template-columns: min-content auto min-content;
-    grid-template-rows: min-content auto;
-    align-items: center;
-    cursor: default;
-    padding: .8em .4em;
-    box-shadow: 0 0 10000px black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80vw;
+  height: 90vh;
+  transform: translate(10vw, 5vh);
+  background: rgb(159 208 244 / 1);
+  z-index: 100;
+  color: var(--palette-c4) !important;
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  grid-template-rows: min-content auto;
+  align-items: center;
+  cursor: default;
+  padding: 0.8em 0.4em;
+  box-shadow: 0 0 10000px black;
 }
 @media (max-width: 750px) {
-    .calendar-open {
-        grid-template-rows: min-content min-content auto !important;
-        width: 100vw;
-        height: 100vh;
-        transform: translate(0, 0);
-    }
-    .day__number, .btn-remove {grid-row: 1 / span 1 !important;}
-    .btn-add {grid-row: 2 / span 1 !important; max-width: 50% !important;}
-    .btn__label {font-size: small !important;}
-    .btn-add::after {display: none !important;}
-    .day__dates {grid-row: 3 / span 1 !important;}
-    .day__default-message {grid-row: 3 / span 1 !important;}
+  .calendar-open {
+    grid-template-rows: min-content min-content auto !important;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(0, 0);
+  }
+  .day__number,
+  .btn-remove {
+    grid-row: 1 / span 1 !important;
+  }
+  .btn-add {
+    grid-row: 2 / span 1 !important;
+    max-width: 50% !important;
+  }
+  .btn__label {
+    font-size: small !important;
+  }
+  .btn-add::after {
+    display: none !important;
+  }
+  .day__dates {
+    grid-row: 3 / span 1 !important;
+  }
+  .day__default-message {
+    grid-row: 3 / span 1 !important;
+  }
 }
 .calendar-open::after {
-    display: none;
+  display: none;
 }
 .calendar-open > .day__number {
-    color: rgb(93 119 138 / 1);
+  color: rgb(93 119 138 / 1);
 }
 
 /*style for the day number inside the time tag*/
 .day__number {
-    font-size: var(--calendar-day-number-fs);
-    font-weight: var(--fw-p);
-    font-family: var(--calendar-day-number-font-family);
-    margin-left: .6em;
-    padding: 0;
-    pointer-events: none;
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 1;
-    justify-self: flex-start;
+  font-size: var(--calendar-day-number-fs);
+  font-weight: var(--fw-p);
+  font-family: var(--calendar-day-number-font-family);
+  margin-left: 0.6em;
+  padding: 0;
+  pointer-events: none;
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+  justify-self: flex-start;
 }
 .day__number::after {
-    content: attr(after-content);
-    font-size: small;
-    font-style: italic;
+  content: attr(after-content);
+  font-size: small;
+  font-style: italic;
 }
 
 .dates__btn {
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
-    border: none;
-    padding: .8em;
-    align-self: center;
-    cursor: pointer;
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  border: none;
+  padding: 0.8em;
+  align-self: center;
+  cursor: pointer;
 }
 .dates__btn:hover {
-    filter: brightness(1.125);
-    color: #fff;
-    transform: scale(1.125, 1.125);
+  filter: brightness(1.125);
+  color: #fff;
+  transform: scale(1.125, 1.125);
 }
 .dates__btn:active {
-    transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05);
 }
 
 /*style for the button that adds appointments*/
 .btn-add {
-    justify-self: center;
-    color: var(--color-add-btn);
-    background-color: var(--bg-add-btn);
-    font-size: var(--fs-h6);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: .2em 2em;
+  justify-self: center;
+  color: var(--color-add-btn);
+  background-color: var(--bg-add-btn);
+  font-size: var(--fs-h6);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2em 2em;
 }
 .btn-add::after {
-    content: url('https://api.iconify.design/carbon/add-filled.svg?color=white&width=32&height=32');
-    margin-top: auto;
-    margin-left: .8em;
+  content: url("https://api.iconify.design/carbon/add-filled.svg?color=white&width=32&height=32");
+  margin-top: auto;
+  margin-left: 0.8em;
 }
 
 /*style for the button for closing the opened date*/
 .btn-close {
-    justify-self: flex-end;
-    margin-right: .2em;
-    background: transparent;
+  justify-self: flex-end;
+  margin-right: 0.2em;
+  background: transparent;
 }
 .btn-close::after {
-    content: url('https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32');
+  content: url("https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32");
 }
 
 /*set the icon for the days that have appointment*/
 .icon-warning {
-    color: var(--palette-c4);
+  color: var(--palette-c4);
 }
 .icon-warning::after {
-    content: url('warning-white.svg');
-    margin-left: .8em;
+  content: url("warning-white.svg");
+  margin-left: 0.8em;
 }
 
 /*set the initial position of the first day of the calendar*/
-.calendar-1 {grid-column: 1;}
-.calendar-2 {grid-column: 2;}
-.calendar-3 {grid-column: 3;}
-.calendar-4 {grid-column: 4;}
-.calendar-5 {grid-column: 5;}
-.calendar-6 {grid-column: 6;}
-.calendar-7 {grid-column: 7;}
+.calendar-1 {
+  grid-column: 1;
+}
+.calendar-2 {
+  grid-column: 2;
+}
+.calendar-3 {
+  grid-column: 3;
+}
+.calendar-4 {
+  grid-column: 4;
+}
+.calendar-5 {
+  grid-column: 5;
+}
+.calendar-6 {
+  grid-column: 6;
+}
+.calendar-7 {
+  grid-column: 7;
+}
 
 /*styling inside the calendar day*/
 .day__dates {
-    list-style-type: none;
-    padding: 0;
-    margin: .4em auto;
-    width: 90%;
-    height: 90%;
-    background-color: rgb(90 146 187 / 1);
-    transition: opacity .4s ease-in;
-    display: grid;
-    grid-template-rows: repeat(96, .0107fr);
-    grid-template-columns: min-content auto;
-    grid-auto-flow: column;
-    grid-column: 2 / span 1;
-    grid-row: 2 / span 1;
-    counter-reset: hours;
-    counter-set: hours -1;
-    overflow: hidden;
+  list-style-type: none;
+  padding: 0;
+  margin: 0.4em auto;
+  width: 90%;
+  height: 90%;
+  background-color: rgb(90 146 187 / 1);
+  transition: opacity 0.4s ease-in;
+  display: grid;
+  grid-template-rows: repeat(96, 0.0107fr);
+  grid-template-columns: min-content auto;
+  grid-auto-flow: column;
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  counter-reset: hours;
+  counter-set: hours -1;
+  overflow: hidden;
 }
 .dates__date {
-    font-size: var(--fs-p);
-    font-family: var(--ff-p);
-    font-weight: var(--fw-p);
-    text-align: center;
-    grid-column: 2 / span 1;
-    background-color: rgb( 100 100 20 / .1);
-    overflow-x: auto;
-    overflow-y: hidden;
-    transition: all .5s ease-in-out;
-    cursor: pointer;
+  font-size: var(--fs-p);
+  font-family: var(--ff-p);
+  font-weight: var(--fw-p);
+  text-align: center;
+  grid-column: 2 / span 1;
+  background-color: rgb(100 100 20 / 0.1);
+  overflow-x: auto;
+  overflow-y: hidden;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
 }
 .dates__date:hover {
-    z-index: 400;
-    border-top: 1px solid rgb(255 255 255 / .4);
-    border-bottom: 1px solid rgb(255 255 255 / .4);
+  z-index: 400;
+  border-top: 1px solid rgb(255 255 255 / 0.4);
+  border-bottom: 1px solid rgb(255 255 255 / 0.4);
 }
 .dates__date-clicked {
-    grid-row: 1 / span 96 !important;
-    z-index: 400;
-    cursor: default;
-    width: 90%;
-    margin: 0 auto;
-    border: none !important;
+  grid-row: 1 / span 96 !important;
+  z-index: 400;
+  cursor: default;
+  width: 90%;
+  margin: 0 auto;
+  border: none !important;
 }
 .dates__date-clicked > .date__container > * {
-    display: block;
+  display: block;
 }
 .dates__date-clicked > .date__container > .date__time-container {
-    display: flex;
+  display: flex;
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tags inside the date component ~~~~~*/
 .date__container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow-wrap: break-word;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-wrap: break-word;
 }
 .date__btn {
-    border: none;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: scale(1.6, 1.6);
-    display: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: scale(1.6, 1.6);
+  display: none;
 }
 .date__btn:hover {
-    filter: brightness(1.125);
-    transform: scale(1.8, 1.8) rotate(346deg);
+  filter: brightness(1.125);
+  transform: scale(1.8, 1.8) rotate(346deg);
 }
 .date__btn:active {
-    transform: scale(1.7, 1.7);
+  transform: scale(1.7, 1.7);
 }
 .date__delete-btn {
-    background: transparent;
-    right: 5%;
+  background: transparent;
+  right: 5%;
 }
 .date__title {
-    font-weight: bolder;
-    margin: 0;
-    padding: 0;
+  font-weight: bolder;
+  margin: 0;
+  padding: 0;
 }
 .date__title::before {
-    content: '📌 “';
+  content: "📌 “";
 }
 .date__title::after {
-    content: '”';
+  content: "”";
 }
 .date__content {
-    font-weight: lighter;
-    margin: 2em 0;
-    padding: 0;
-    display: none;
-    max-width: 75%;
+  font-weight: lighter;
+  margin: 2em 0;
+  padding: 0;
+  display: none;
+  max-width: 75%;
 }
 .date__content::before {
-    content: attr(before-content) '  ';
+  content: attr(before-content) "  ";
 }
 .date__edit-btn {
-    background: transparent;
-    left: 5%;
+  background: transparent;
+  left: 5%;
 }
 .date__time-container {
-    display: none;
-    flex-direction: column;
-    font-size: small;
+  display: none;
+  flex-direction: column;
+  font-size: small;
 }
 @media (max-width: 700px) {
-    .date__container {
-        flex-direction: column;
-        justify-content: center;
-    }
-    .date__btn {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin: 2em 0;
-    }
+  .date__container {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .date__btn {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 2em 0;
+  }
 }
 
 .day__hour {
-    grid-column: 1 / span 1;
-    grid-row-end: span 4;
-    counter-increment: hours;
-    background: rgb(63 99 126 / 1);
+  grid-column: 1 / span 1;
+  grid-row-end: span 4;
+  counter-increment: hours;
+  background: rgb(63 99 126 / 1);
 }
-.day__hour:first-child, 
+.day__hour:first-child,
 .day__hour + .day__hour {
-    --border-color: rgb(93 119 138 / 1);
-    border-bottom: 2px solid var(--border-color);
+  --border-color: rgb(93 119 138 / 1);
+  border-bottom: 2px solid var(--border-color);
 }
-.day__hour:nth-child(24) {border-bottom: none;}
+.day__hour:nth-child(24) {
+  border-bottom: none;
+}
 
 .day__hour::after {
-    content: counter(hours) 'hs ';
-    text-align: center;
-    padding: 0 .8em;
-    float: right;
+  content: counter(hours) "hs ";
+  text-align: center;
+  padding: 0 0.8em;
+  float: right;
 }
 
 /*styling for the label returned as default when theres no dates this day*/
 .day__default-message {
-    font-size: var(--fs-h5);
-    font-family: var(--ff-h6);
-    font-weight: var(--fw-p);
-    width: 85%;
-    max-width: 600px;
-    color: rgb(93 119 138 / 1);
-    margin: 5em auto auto auto;
-    text-align: center;
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
-    padding: 1em 1.5em;
-    background-color: rgb(93 119 138 / .25);
+  font-size: var(--fs-h5);
+  font-family: var(--ff-h6);
+  font-weight: var(--fw-p);
+  width: 85%;
+  max-width: 600px;
+  color: rgb(93 119 138 / 1);
+  margin: 5em auto auto auto;
+  text-align: center;
+  grid-row: 2 / span 1;
+  grid-column: 2 / span 1;
+  padding: 1em 1.5em;
+  background-color: rgb(93 119 138 / 0.25);
 }
 
-
 @media (max-width: 900px) {
-    .schedules__header h3 {
-        visibility: hidden;
-    }
-    .schedules__header h3::first-letter {
-        visibility: visible;
-        border-left: 3px solid var(--border-color);
-        padding-left: 28%;
-    }
-    .schedules__header h3:first-child::first-letter {
-        border-left: none;
-    }
+  .schedules__header h3 {
+    visibility: hidden;
+  }
+  .schedules__header h3::first-letter {
+    visibility: visible;
+    border-left: 3px solid var(--border-color);
+    padding-left: 28%;
+  }
+  .schedules__header h3:first-child::first-letter {
+    border-left: none;
+  }
 }
 /*schedules header breaks under 500px (font-size too big)*/
 @media (max-width: 500px) {
-    .schedules__header h3 {
-        font-size: var(--fs-p);
-    }
-    .calendar-open {
-        grid-row: span 7 / span 3 !important;
-        grid-column: span 7 / span 3 !important;
-        min-height: 50vh;
-    }
+  .schedules__header h3 {
+    font-size: var(--fs-p);
+  }
+  .calendar-open {
+    grid-row: span 7 / span 3 !important;
+    grid-column: span 7 / span 3 !important;
+    min-height: 50vh;
+  }
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ New date container ~~~~~*/
 .schedules__new-date {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: var(--palette-c5);
-    width: 50vw;
-    height: 75vh;
-    transform: translate(25vw, 15vh);
-    box-shadow: 0 0 100px black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-items: flex-start;
-    z-index: 200;
-    color: #21435c;
-    overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--palette-c5);
+  width: 50vw;
+  height: 75vh;
+  transform: translate(25vw, 15vh);
+  box-shadow: 0 0 100px black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-items: flex-start;
+  z-index: 200;
+  color: #21435c;
+  overflow: hidden;
 }
 @media (max-width: 750px) {
-    .schedules__new-date {
-        width: 90vw;
-        height: 90vh;
-        transform: translate(5vw, 5vh);
-    }
+  .schedules__new-date {
+    width: 90vw;
+    height: 90vh;
+    transform: translate(5vw, 5vh);
+  }
 }
 /*container for the title and the close button*/
 .new-date__header {
-    margin: .8em auto;
-    display: flex;
-    width: 90%;
-    max-width: 800px;
-    align-items: center;
-    justify-content: space-between;
-    border-color: #5289b1;
-    font-family: var(--ff-p);
+  margin: 0.8em auto;
+  display: flex;
+  width: 90%;
+  max-width: 800px;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #5289b1;
+  font-family: var(--ff-p);
 }
 /*title*/
 .new-date__title {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: var(--ff-p);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: var(--ff-p);
 }
 /*close button*/
 .new-date__btn-close {
-    background: var(--bg-close-btn);
-    min-width: 32px;
-    min-height: 32px;
-    background: url('https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32');
+  background: var(--bg-close-btn);
+  min-width: 32px;
+  min-height: 32px;
+  background: url("https://api.iconify.design/carbon/close-filled.svg?color=%23c85050&width=32&height=32");
 }
 .new-date__btn-close:hover {
-    transform: scale(1.125, 1.125);
+  transform: scale(1.125, 1.125);
 }
 .new-date__btn-close:active {
-    transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05);
 }
 
 /*fieldset*/
 .new-date__fieldset {
-    padding: .8em;
-    margin: auto;
-    display: flex;
-    width: 90%;
-    height: 80%;
-    overflow: hidden;
-    max-width: 800px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    border-color: #5289b1;
-    font-family: var(--ff-p);
+  padding: 0.8em;
+  margin: auto;
+  display: flex;
+  width: 90%;
+  height: 80%;
+  overflow: hidden;
+  max-width: 800px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-color: #5289b1;
+  font-family: var(--ff-p);
 }
 .fieldset__label {
-    color: #001a2d;
-    width: 70%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--fs-h6);
+  color: #001a2d;
+  width: 70%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--fs-h6);
 }
 .fieldset__input {
-    padding: .4em .8em;
-    border-radius: 0;
-    border: none;
-    margin: 1em .2em;
-    outline: none;
-    border: 1px solid transparent;
-    width: 100%;
-    font-family: var(--ff-p);
-    cursor: pointer;
+  padding: 0.4em 0.8em;
+  border-radius: 0;
+  border: none;
+  margin: 1em 0.2em;
+  outline: none;
+  border: 1px solid transparent;
+  width: 100%;
+  font-family: var(--ff-p);
+  cursor: pointer;
 }
 .fieldset__input:active {
-    border: 1px solid var(--palette-c5);
+  border: 1px solid var(--palette-c5);
 }
 .fieldset__btn-add {
-    margin: 0;
-    background-color: var(--bg-add-btn);
-    color: var(--color-add-btn);
+  margin: 0;
+  background-color: var(--bg-add-btn);
+  color: var(--color-add-btn);
 }
 .fieldset__btn-add:hover {
-    transform: scale(1.125, 1.125);
+  transform: scale(1.125, 1.125);
 }
 .fieldset__btn-add:active {
-    transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05);
 }
 .fieldset__btn-add:disabled {
-    filter: brightness(.85);
-    background-color: var(--bg-add-btn-warning);
-    cursor: default;
+  filter: brightness(0.85);
+  background-color: var(--bg-add-btn-warning);
+  cursor: default;
 }
 
 /*custom styling for the input type 'time'*/
-input[type=time] {
-    --numbers-color: #000;
-    --numbers-bg: #eee;
-    --midtime-bg: #0e7bca;
-    --midtime-color: #fff;
-    text-align: center;
+input[type="time"] {
+  --numbers-color: #000;
+  --numbers-bg: #eee;
+  --midtime-bg: #0e7bca;
+  --midtime-color: #fff;
+  text-align: center;
 }
 /* Wrapper around the hour, minute, second, and am/pm fields as well as 
 the up and down buttons and the 'X' button */
@@ -588,38 +680,50 @@ the up and down buttons and the 'X' button */
 /*}*/
 /* The space between the fields - between hour and minute, the minute and 
 second, second and am/pm */
-input[type=time]::-webkit-datetime-edit-text {
-  padding: .4em .5em;
+input[type="time"]::-webkit-datetime-edit-text {
+  padding: 0.4em 0.5em;
 }
 /* Hour and Minutes */
-input[type=time]::-webkit-datetime-edit-minute-field,
-input[type=time]::-webkit-datetime-edit-hour-field {
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-hour-field {
   background-color: var(--numbers-bg);
   border-radius: 5px;
-  padding: .5em .6em;
+  padding: 0.5em 0.6em;
 }
 /* AM/PM */
-input[type=time]::-webkit-datetime-edit-ampm-field {
+input[type="time"]::-webkit-datetime-edit-ampm-field {
   color: var(--midtime-color);
   background-color: var(--midtime-bg);
   border-radius: 5px;
-  padding: .5em .6em;
+  padding: 0.5em 0.6em;
 }
 /* 'X' button for resetting/clearing time */
-input[type=time]::-webkit-clear-button {
+input[type="time"]::-webkit-clear-button {
   display: none;
 }
 /* Up/Down arrows for incrementing/decrementing the value */
-input[type=time]::-webkit-inner-spin-button {
+input[type="time"]::-webkit-inner-spin-button {
   display: none;
 }
 /* clock that pops on click */
 input[type="time"]::-webkit-calendar-picker-indicator {
-   filter: invert(0.5) sepia(1) saturate(60) hue-rotate(200deg);
-   cursor: pointer;
-   padding: .5em .6em;
-   justify-self: center;
-   border-radius: 5px;
-   align-self: center;
-   border: 1px solid var(--midtime-color);
+  filter: invert(0.5) sepia(1) saturate(60) hue-rotate(200deg);
+  cursor: pointer;
+  padding: 0.5em 0.6em;
+  justify-self: center;
+  border-radius: 5px;
+  align-self: center;
+  border: 1px solid var(--midtime-color);
+}
+
+/*FONT SIZES*/
+@media (min-width: 400px) {
+  :root {
+    font-size: 13px;
+  }
+}
+@media (min-width: 600px) {
+  :root {
+    font-size: 16px;
+  }
 }

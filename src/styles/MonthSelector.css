@@ -1,89 +1,99 @@
 .month-selector {
-    --month-color: var(--palette-c2);
-    --month-size: clamp(1rem, 2.4vmax, 2.2rem);
-    --month-ff: var(--ff-h1);
-    --month-fw: 600;
-    --year-size: clamp(1rem, 2vmax, 1.9rem);
+  --month-color: var(--palette-c2);
+  --month-size: clamp(1rem, 2.4vmax, 2.2rem);
+  --month-ff: var(--ff-h1);
+  --month-fw: 600;
+  --year-size: clamp(1rem, 2vmax, 1.9rem);
 
-    margin-bottom: .6em;
+  margin-bottom: 0.6em;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CURRENT MONTH ~~~~~*/
 .data-container {
-    height: 10vh;
-    width: 30vw;
-    margin: 0 5vmax;
+  height: clamp(30px, 10vh, 10%);
+  width: 30vw;
+  margin: 0 5vmax;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .date-container__month {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
-    text-align: center;
-    user-select: none;
-    font-weight: var(--month-fw);
-    color: var(--month-color);
-    font-size: var(--month-size);
-    font-family: var(--month-ff);
+  text-align: center;
+  user-select: none;
+  font-weight: var(--month-fw);
+  color: var(--month-color);
+  font-size: var(--month-size);
+  font-family: var(--month-ff);
 }
 
 .date-container__year {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
-    text-align: center;
-    user-select: none;
-    font-weight: var(--month-fw);
-    color: var(--month-color);
-    font-size: var(--year-size);
-    font-family: var(--month-ff);
+  text-align: center;
+  user-select: none;
+  font-weight: var(--month-fw);
+  color: var(--month-color);
+  font-size: var(--year-size);
+  font-family: var(--month-ff);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ARROWS ~~~~~*/
 #arrow {
-    fill: black;
-    width: clamp(2rem, 10vmin, 5.5rem);
-    height: clamp(2rem, 10vmin, 5.5rem);
+  fill: black;
+  width: clamp(2rem, 10vmin, 5.5rem);
+  height: clamp(2rem, 10vmin, 5.5rem);
 }
 #arrow,
 #arrow-left,
 #arrow-right {
-    cursor: pointer;
+  cursor: pointer;
 }
 .month-selector__left-arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 #arrow:hover #arrow-right,
 #arrow:hover #arrow-right,
 #arrow:hover #arrow-left,
 #arrow:hover #arrow-left {
-    animation-name: arrowWiggle;
-    animation-duration: 1.5s;
-    animation-iteration-count: 1;
+  animation-name: arrowWiggle;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
 }
 #arrow:active,
 #arrow:active #arrow-right,
 #arrow:active #arrow-right,
 #arrow:active #arrow-left,
 #arrow:active #arrow-left {
-    fill: var(--palette-c4);
+  fill: var(--palette-c4);
 }
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ANIMATIONS ~~~~~*/
 @keyframes arrowWiggle {
-    0% {transform: translateX(0);}
-    10% {transform: translateX(20%);}
-    20% {transform: translateX(10%);}
-    30% {transform: translateX(20%);}
-    40% {transform: translateX(10%);}
-    100% {transform: translateX(0%);}
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(20%);
+  }
+  20% {
+    transform: translateX(10%);
+  }
+  30% {
+    transform: translateX(20%);
+  }
+  40% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
