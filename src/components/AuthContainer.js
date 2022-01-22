@@ -21,22 +21,18 @@ const AuthContainer = ({ user }) => {
       {user ? logout_container : login_container}
       <div className="auth__arrow"></div>
       <div className="auth__user row jc-sb">
-        {user?.multiFactor?.user?.displayName ? (
+        {user ? (
           <p className="user__username ta-c">
             {user.multiFactor.user.displayName}
           </p>
-        ) : (
-          "user"
-        )}
-        {user?.multiFactor?.user?.photoURL !== "" ? (
+        ) : null}
+        {user ? (
           <img
             className="user__logo"
             alt="user logo"
             src={user?.multiFactor?.user?.photoURL}
           ></img>
-        ) : (
-          <img src="./../assets/userIcon.svg" alt="User Profile" />
-        )}
+        ) : null}
       </div>
     </div>
   );
