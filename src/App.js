@@ -201,7 +201,7 @@ const App = () => {
       setMonthData({ date: Timestamp.fromDate(newDate), days: [] });
     }
 
-    setTotalDaysInTheMonth(get_days_of_month(month, year));
+    setTotalDaysInTheMonth(get_days_of_month(month + 1, year));
   };
 
   // update the amount of days for the current month.
@@ -209,7 +209,7 @@ const App = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getYear();
     const currentMonth = currentDate.getMonth();
-    setTotalDaysInTheMonth(get_days_of_month(currentMonth, currentYear));
+    setTotalDaysInTheMonth(get_days_of_month(currentMonth + 1, currentYear));
   }, []);
 
   return (
